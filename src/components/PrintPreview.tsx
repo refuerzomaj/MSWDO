@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Person, Page } from "../types";
 import { fullName, initials, colorFor } from "../utils";
 export default function PrintPreview({
@@ -100,6 +101,33 @@ export default function PrintPreview({
             <Row a="Relationship" b={person.emergencyRel || "—"} />
             <Row a="Phone" b={person.emergencyPhone || "—"} />
           </Block>
+          {person.familyMembers?.length > 0 && (
+            <Block title="Family members">
+              <>
+                {person.familyMembers.map((member) => (
+                  <Fragment key={member.id}>
+                    <Row a="Name" b={member.name} />
+                    <Row
+                      a="Age / Civil status"
+                      b={`${member.age} · ${member.civilStatus}`}
+                    />
+                    <Row
+                      a="Occupation / Income"
+                      b={`${member.occupation || "—"} · ${member.income > 0 ? `₱${member.income.toLocaleString()}` : "—"}`}
+                    />
+                    <Row
+                      a="Education"
+                      b={member.educationalAttainment || "—"}
+                    />
+                    <Row
+                      a="Target institution"
+                      b={member.targetInstitution || "—"}
+                    />
+                  </Fragment>
+                ))}
+              </>
+            </Block>
+          )}
           <p className="sub">
             This document is a system-generated print view. Verify details
             before issuance.

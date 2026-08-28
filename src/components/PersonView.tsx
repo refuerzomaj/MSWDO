@@ -99,6 +99,59 @@ export default function PersonView({
               }
             />
           </div>
+          <br></br>
+          <h2>Family Members</h2>
+          {person.familyMembers?.length > 0 && (
+            <div>
+              <div className="family-header">
+                <div>
+                  <p className="sub">
+                    Family and household information linked to this person.
+                  </p>
+                </div>
+                <span className="badge">
+                  {person.familyMembers.length} member
+                  {person.familyMembers.length === 1 ? "" : "s"}
+                </span>
+              </div>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Relationship</th>
+                      <th>Age</th>
+                      <th>Civil Status</th>
+                      <th>Occupation</th>
+                      <th>Income</th>
+                      <th>Educational Attainment</th>
+                      <th>Target Institution</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {person.familyMembers.map((member) => (
+                      <tr key={member.id}>
+                        <td>
+                          <strong>{member.name}</strong>
+                        </td>
+                        <td>{member.relationship}</td>
+                        <td>{member.age}</td>
+                        <td>{member.civilStatus}</td>
+                        <td>{member.occupation || "—"}</td>
+                        <td>
+                          {member.income > 0
+                            ? `₱${member.income.toLocaleString()}`
+                            : "—"}
+                        </td>
+                        <td>{member.educationalAttainment || "—"}</td>
+                        <td>{member.targetInstitution || "—"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

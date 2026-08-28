@@ -1,4 +1,7 @@
-import type { Person } from "./types";
+import type { Person, FamilyMember } from "./types";
+
+const family = (members: Omit<FamilyMember, "id">[]): FamilyMember[] =>
+  members.map((member, index) => ({ ...member, id: `FM-${index + 1}` }));
 
 export const initialPeople: Person[] = [
   {
@@ -24,6 +27,28 @@ export const initialPeople: Person[] = [
     nationalId: "",
     passport: "",
     photo: "",
+    familyMembers: family([
+      {
+        name: "Ana Dela Cruz",
+        relationship: "Sister",
+        age: 38,
+        civilStatus: "Married",
+        occupation: "Household Manager",
+        income: 0,
+        educationalAttainment: "College Graduate",
+        targetInstitution: "N/A",
+      },
+      {
+        name: "Miguel Dela Cruz",
+        relationship: "Father",
+        age: 12,
+        civilStatus: "Single",
+        occupation: "Student",
+        income: 0,
+        educationalAttainment: "Grade 6",
+        targetInstitution: "Quezon City Science High School",
+      },
+    ]),
   },
   {
     id: "PRP-10491",
@@ -48,6 +73,28 @@ export const initialPeople: Person[] = [
     nationalId: "",
     passport: "",
     photo: "",
+    familyMembers: family([
+      {
+        name: "Luis Reyes",
+        relationship: "Mother",
+        age: 35,
+        civilStatus: "Married",
+        occupation: "Sales Supervisor",
+        income: 32000,
+        educationalAttainment: "College Graduate",
+        targetInstitution: "N/A",
+      },
+      {
+        name: "Sofia Reyes",
+        relationship: "Sister",
+        age: 8,
+        civilStatus: "Single",
+        occupation: "Student",
+        income: 0,
+        educationalAttainment: "Grade 3",
+        targetInstitution: "Quezon City Elementary School",
+      },
+    ]),
   },
   {
     id: "PRP-10503",
@@ -72,6 +119,18 @@ export const initialPeople: Person[] = [
     nationalId: "",
     passport: "",
     photo: "",
+    familyMembers: family([
+      {
+        name: "Helen Tan",
+        relationship: "Mother",
+        age: 61,
+        civilStatus: "Widowed",
+        occupation: "Retired Teacher",
+        income: 18000,
+        educationalAttainment: "College Graduate",
+        targetInstitution: "N/A",
+      },
+    ]),
   },
   {
     id: "PRP-10518",
@@ -96,6 +155,28 @@ export const initialPeople: Person[] = [
     nationalId: "",
     passport: "",
     photo: "",
+    familyMembers: family([
+      {
+        name: "Marco Ramirez",
+        relationship: "Father",
+        age: 36,
+        civilStatus: "Married",
+        occupation: "Civil Engineer",
+        income: 48000,
+        educationalAttainment: "College Graduate",
+        targetInstitution: "N/A",
+      },
+      {
+        name: "Lucas Ramirez",
+        relationship: "Brother",
+        age: 6,
+        civilStatus: "Single",
+        occupation: "Student",
+        income: 0,
+        educationalAttainment: "Kindergarten",
+        targetInstitution: "Tagaytay Central School",
+      },
+    ]),
   },
   {
     id: "PRP-10522",
@@ -120,5 +201,27 @@ export const initialPeople: Person[] = [
     nationalId: "",
     passport: "",
     photo: "",
+    familyMembers: family([
+      {
+        name: "Elena Mendoza",
+        relationship: "Mother",
+        age: 39,
+        civilStatus: "Married",
+        occupation: "Public School Teacher",
+        income: 36000,
+        educationalAttainment: "College Graduate",
+        targetInstitution: "N/A",
+      },
+      {
+        name: "Carlo Mendoza",
+        relationship: "Brother",
+        age: 15,
+        civilStatus: "Single",
+        occupation: "Student",
+        income: 0,
+        educationalAttainment: "Grade 10",
+        targetInstitution: "Pasig City Science High School",
+      },
+    ]),
   },
 ];

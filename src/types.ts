@@ -9,6 +9,18 @@ export type Page =
   | "reports"
   | "settings";
 
+export interface FamilyMember {
+  id: string;
+  name: string;
+  relationship: string;
+  age: number;
+  civilStatus: string;
+  occupation: string;
+  income: number;
+  educationalAttainment: string;
+  targetInstitution: string;
+}
+
 export interface Person {
   id: string;
   code: string;
@@ -32,6 +44,7 @@ export interface Person {
   nationalId: string;
   passport: string;
   photo: string;
+  familyMembers: FamilyMember[];
 }
 
 export type PersonFormData = Omit<Person, "id" | "code" | "status"> & {

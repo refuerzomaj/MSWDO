@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
-import type { Person, PersonFormData, Page } from "../types";
+import type { Person, PersonFormData, Page, FamilyMember } from "../types";
 import { nextPersonCode } from "../utils";
 type Props = {
   people: Person[];
   setPeople: React.Dispatch<React.SetStateAction<Person[]>>;
   currentId: string | null;
+  setCurrentId: (id: string) => void;
   setPage: (p: Page) => void;
   toast: (m: string) => void;
+};
+const blankFamily: FamilyMember = {
+  id: "",
+  name: "",
+  relationship: "",
+  age: 0,
+  civilStatus: "Single",
+  occupation: "",
+  income: 0,
+  educationalAttainment: "",
+  targetInstitution: "",
 };
 const blank: PersonFormData = {
   firstName: "",
@@ -28,11 +40,13 @@ const blank: PersonFormData = {
   emergencyRel: "",
   emergencyPhone: "",
   photo: "",
+  familyMembers: [],
 };
 export default function PersonForm({
   people,
   setPeople,
   currentId,
+  setCurrentId,
   setPage,
   toast,
 }: Props) {
@@ -44,6 +58,30 @@ export default function PersonForm({
   }, [currentId, people]);
   const change = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const addFamilyMember = () =>
+    setForm((f) => ({
+      ...f,
+      familyMembers: [
+        ...(f.familyMembers || []),
+        { ...blankFamily, id: `FM-${Date.now()}` },
+      ],
+    }));
+  const updateFamilyMember = (
+    id: string,
+    key: keyof FamilyMember,
+    value: string | number,
+  ) =>
+    setForm((f) => ({
+      ...f,
+      familyMembers: (f.familyMembers || []).map((m) =>
+        m.id === id ? { ...m, [key]: value } : m,
+      ),
+    }));
+  const removeFamilyMember = (id: string) =>
+    setForm((f) => ({
+      ...f,
+      familyMembers: (f.familyMembers || []).filter((m) => m.id !== id),
+    }));
   const photo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -80,6 +118,7 @@ export default function PersonForm({
       setPeople((prev) => [person, ...prev]);
       toast("Person record saved");
     }
+    setCurrentId(person.id);
     if (intent === "preview") {
       setPage("preview");
     } else {
@@ -281,6 +320,118 @@ export default function PersonForm({
                 onChange={change}
               />
             </div>
+            <div className="family-header">
+              <div>
+                <h2 style={{ margin: "22px 0 4px" }}>Family members</h2>
+                <p className="sub" style={{ margin: 0 }}>
+                  Add household or family members and their education or income
+                  details.
+                </p>
+              </div>
+              <button
+                className="btn outline"
+                type="button"
+                onClick={addFamilyMember}
+              >
+                + Add family member
+              </button>
+            </div>
+            <div className="family-list">
+              {(form.familyMembers || []).map((member, index) => (
+                <div className="family-card" key={member.id || index}>
+                  <div className="family-card-head">
+                    <strong>Family member {index + 1}</strong>
+                    <button
+                      className="btn sm danger"
+                      type="button"
+                      onClick={() => removeFamilyMember(member.id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <div className="fields g3">
+                    <FamilyField
+                      label="Name"
+                      value={member.name}
+                      onChange={(v) => updateFamilyMember(member.id, "name", v)}
+                      required
+                    />
+                    <FamilyField
+                      label="Relationship"
+                      value={member.relationship}
+                      onChange={(v) =>
+                        updateFamilyMember(member.id, "relationship", v)
+                      }
+                      required
+                    />
+                    <FamilyField
+                      label="Age"
+                      type="number"
+                      value={String(member.age || "")}
+                      onChange={(v) =>
+                        updateFamilyMember(member.id, "age", Number(v) || 0)
+                      }
+                      required
+                    />
+                    <div>
+                      <label>Civil Status</label>
+                      <select
+                        value={member.civilStatus}
+                        onChange={(e) =>
+                          updateFamilyMember(
+                            member.id,
+                            "civilStatus",
+                            e.target.value,
+                          )
+                        }
+                      >
+                        <option>Single</option>
+                        <option>Married</option>
+                        <option>Widowed</option>
+                        <option>Separated</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="fields g3" style={{ marginTop: 12 }}>
+                    <FamilyField
+                      label="Occupation"
+                      value={member.occupation}
+                      onChange={(v) =>
+                        updateFamilyMember(member.id, "occupation", v)
+                      }
+                    />
+                    <FamilyField
+                      label="Monthly Income"
+                      type="number"
+                      value={String(member.income || "")}
+                      onChange={(v) =>
+                        updateFamilyMember(member.id, "income", Number(v) || 0)
+                      }
+                    />
+                    <FamilyField
+                      label="Educational Attainment"
+                      value={member.educationalAttainment}
+                      onChange={(v) =>
+                        updateFamilyMember(
+                          member.id,
+                          "educationalAttainment",
+                          v,
+                        )
+                      }
+                    />
+                  </div>
+                  <div style={{ marginTop: 12 }}>
+                    <FamilyField
+                      label="Target Institution"
+                      value={member.targetInstitution}
+                      onChange={(v) =>
+                        updateFamilyMember(member.id, "targetInstitution", v)
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="form-foot">
@@ -314,6 +465,33 @@ export default function PersonForm({
         </div>
       </form>
     </section>
+  );
+}
+function FamilyField({
+  label,
+  value,
+  onChange,
+  required,
+  type = "text",
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  required?: boolean;
+  type?: string;
+}) {
+  return (
+    <div>
+      <label>
+        {label} {required && <span className="req">*</span>}
+      </label>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required={required}
+      />
+    </div>
   );
 }
 function Field({

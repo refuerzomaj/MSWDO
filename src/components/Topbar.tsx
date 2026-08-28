@@ -26,7 +26,7 @@ export default function Topbar({ page, setPage, search, setSearch }: Props) {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button className="bell" title="Notifications" type="button">
-          ●
+          MG
         </button>
         <button className="btn primary" onClick={() => setPage("form")}>
           + Add Person
