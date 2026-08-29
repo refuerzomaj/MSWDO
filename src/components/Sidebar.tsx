@@ -1,15 +1,22 @@
 import type { Page } from "../types";
 
-type Props = { page: Page; setPage: (p: Page) => void };
-export default function Sidebar({ page, setPage }: Props) {
+type Props = {
+  page: Page;
+  setPage: (p: Page) => void;
+  onAddPerson: () => void;
+};
+
+export default function Sidebar({ page, setPage, onAddPerson }: Props) {
   const items: [Page, string][] = [
     ["dashboard", "Dashboard"],
+    ["certification", "Certification"],
     ["people", "People"],
     ["form", "Add Person"],
     ["preview", "Print Preview"],
     ["reports", "Reports"],
     ["settings", "Settings"],
   ];
+
   return (
     <aside className="sidebar">
       <a
@@ -21,27 +28,43 @@ export default function Sidebar({ page, setPage }: Props) {
         }}
       >
         <div className="logo">MRP</div>
+
         <div>
-          MSWDO Registry<small>Web portal prototype</small>
+          MSWDO Registry
+          <small>Web portal prototype</small>
         </div>
       </a>
+
       <nav className="nav">
         {items.map(([id, label]) => (
           <button
             key={id}
             className={page === id ? "active" : ""}
-            onClick={() => setPage(id)}
+            onClick={() => {
+              /*
+               * ADD PERSON
+               */
+              if (id === "form") {
+                onAddPerson();
+                return;
+              }
+
+              setPage(id);
+            }}
           >
             {label}
           </button>
         ))}
       </nav>
+
       <div className="userbox">
         <div className="avatar" style={{ background: "#1a9b8a" }}>
           MG
         </div>
+
         <div className="meta">
-          MG Computing<span>Admin</span>
+          MG Computing
+          <span>Admin</span>
         </div>
       </div>
     </aside>

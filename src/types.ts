@@ -1,7 +1,10 @@
 export type Gender = "Male" | "Female" | "Other";
+
 export type Status = "Active" | "Inactive";
+
 export type Page =
   | "dashboard"
+  | "certification"
   | "people"
   | "form"
   | "view"
