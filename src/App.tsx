@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Page } from "./types";
 import { initialPeople } from "./data";
-
+import Certification from "./components/Certfication";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Dashboard from "./components/Dashboard";
@@ -102,6 +102,10 @@ export default function App() {
               setPage={navigate}
               setCurrentId={setCurrentId}
             />
+          )}
+
+          {page === "certification" && (
+            <Certification setPage={navigate} toast={toast} />
           )}
 
           {page === "people" && (

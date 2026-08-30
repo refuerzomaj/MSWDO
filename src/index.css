@@ -647,3 +647,1059 @@ input:disabled {
     display: none !important;
   }
 }
+
+/* =========================================
+   CERTIFICATION
+========================================= */
+
+.certification-selector {
+  max-width: 750px;
+  margin-top: 24px;
+}
+
+.certification-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.certification-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.certification-option:hover {
+  transform: translateY(-1px);
+
+  border-color: #999;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.certification-option-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.certification-option-arrow {
+  font-size: 22px;
+}
+
+/* =========================================
+   SELECTED CERTIFICATION
+========================================= */
+
+.certification-selected {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.certification-selected > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.field-label {
+  font-size: 12px;
+
+  color: #6b7280;
+
+  text-transform: uppercase;
+
+  font-weight: 600;
+}
+
+/* =========================================
+   FAMILY
+========================================= */
+
+.family-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.family-header h2 {
+  margin-bottom: 4px;
+}
+
+.empty-family {
+  margin-top: 18px;
+
+  padding: 30px;
+
+  text-align: center;
+
+  border: 1px dashed #d1d5db;
+
+  border-radius: 10px;
+
+  color: #6b7280;
+}
+
+.family-card {
+  margin-top: 18px;
+
+  padding: 20px;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  background: #fafafa;
+}
+
+.family-card-head {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+/* =========================================
+   CERTIFICATION PREVIEW MODAL
+========================================= */
+
+.cert-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.cert-modal {
+  width: min(1000px, 100%);
+
+  max-height: 94vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: #fff;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+}
+
+/* HEADER */
+
+.cert-modal-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 20px 24px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cert-modal-header h2 {
+  margin: 0;
+}
+
+.cert-modal-header p {
+  margin: 5px 0 0;
+
+  color: #6b7280;
+}
+
+.cert-modal-close {
+  width: 38px;
+
+  height: 38px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  font-size: 28px;
+
+  cursor: pointer;
+}
+
+.cert-modal-close:hover {
+  background: #f3f4f6;
+}
+
+/* PAPER */
+
+.certificate-paper {
+  flex: 1;
+  font-family: "Courier New", Courier, monospace !important;
+  overflow-y: auto;
+
+  width: min(850px, calc(100% - 40px));
+
+  margin: 20px auto;
+
+  padding: 50px;
+
+  background: #fff;
+
+  border: 1px solid #ddd;
+
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+
+  line-height: 1.6;
+}
+
+/* CERTIFICATE HEADER */
+
+.certificate-header {
+  text-align: center;
+
+  margin-bottom: 35px;
+
+  padding-bottom: 20px;
+
+  border-bottom: 2px solid #222;
+}
+
+.certificate-header h3 {
+  margin: 0;
+
+  font-size: 16px;
+}
+
+.certificate-header p {
+  margin: 8px 0;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.certificate-header h1 {
+  margin: 16px 0 0;
+
+  font-size: 23px;
+}
+
+/* SECTIONS */
+
+.certificate-section {
+  margin-bottom: 28px;
+}
+
+.certificate-section h4 {
+  margin: 0 0 15px;
+
+  padding-bottom: 7px;
+
+  border-bottom: 1px solid #ccc;
+
+  font-size: 13px;
+}
+
+.certificate-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 18px 30px;
+}
+
+.certificate-grid > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.certificate-grid strong,
+.certificate-full-field strong,
+.certificate-text-field strong {
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  color: #555;
+}
+
+.certificate-grid span,
+.certificate-full-field span {
+  min-height: 25px;
+
+  padding-bottom: 3px;
+
+  border-bottom: 1px solid #999;
+}
+
+.certificate-full-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  margin-top: 18px;
+}
+
+.certificate-text-field {
+  margin-bottom: 20px;
+}
+
+.certificate-text-field p,
+.preview-text {
+  min-height: 60px;
+
+  margin: 8px 0 0;
+
+  padding: 10px;
+
+  border: 1px solid #ccc;
+
+  white-space: pre-wrap;
+}
+
+.preview-empty {
+  padding: 20px;
+
+  text-align: center;
+
+  color: #777;
+}
+
+/* FAMILY TABLE */
+
+.family-preview-table {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.family-preview-table table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 11px;
+}
+
+.family-preview-table th,
+.family-preview-table td {
+  padding: 8px;
+
+  border: 1px solid #ccc;
+
+  text-align: left;
+}
+
+.family-preview-table th {
+  font-weight: 600;
+
+  background: #f5f5f5;
+}
+
+/* FOOTER */
+
+.certificate-footer {
+  margin-top: 50px;
+}
+
+.signature-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 80px;
+
+  margin-top: 70px;
+
+  text-align: center;
+}
+
+.signature-line {
+  margin-bottom: 8px;
+
+  border-top: 1px solid #222;
+}
+
+/* MODAL FOOTER */
+
+.cert-modal-footer {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding: 16px 24px;
+
+  border-top: 1px solid #e5e7eb;
+
+  background: #fafafa;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .cert-modal-overlay {
+    padding: 10px;
+  }
+
+  .cert-modal {
+    max-height: 97vh;
+  }
+
+  .certificate-paper {
+    width: calc(100% - 20px);
+
+    margin: 10px;
+
+    padding: 25px;
+  }
+
+  .certificate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .family-header {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .family-header .btn {
+    width: 100%;
+  }
+
+  .certification-selected {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .cert-modal-footer {
+    flex-direction: column;
+  }
+
+  .cert-modal-footer .btn {
+    width: 100%;
+  }
+
+  .signature-grid {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+}
+
+/* PRINT */
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  #certificate-print,
+  #certificate-print * {
+    visibility: visible !important;
+  }
+
+  #certificate-print {
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 40px;
+
+    border: none;
+
+    box-shadow: none;
+  }
+}
+.certification-selection {
+  width: 100%;
+}
+
+.certification-select-wrapper {
+  width: 100%;
+  max-width: 600px;
+}
+
+.certification-select-wrapper label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.certification-select-wrapper select {
+  width: 100%;
+}
+
+/* =====================================================
+   CERTIFICATION PAGE
+===================================================== */
+
+.certification-page {
+  width: 100%;
+}
+
+.certification-select-wrapper {
+  max-width: 600px;
+}
+
+.certification-select-wrapper label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.certification-select-wrapper select {
+  width: 100%;
+}
+
+/* =====================================================
+   CERTIFICATION MODAL
+===================================================== */
+
+.cert-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  overflow-y: auto;
+}
+
+.cert-modal {
+  width: min(1000px, 100%);
+  max-height: 95vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.cert-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 24px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cert-modal-header h2 {
+  margin: 0 0 4px;
+}
+
+.cert-modal-header p {
+  margin: 0;
+
+  color: #6b7280;
+}
+
+.cert-modal-close {
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  font-size: 28px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.cert-modal-close:hover {
+  background: #f3f4f6;
+}
+
+/* =====================================================
+   CERTIFICATE PAPER
+===================================================== */
+
+.certificate-paper {
+  width: 8.5in;
+  min-height: 11in;
+
+  margin: 24px auto;
+
+  padding: 0.7in 0.75in;
+
+  background: #ffffff;
+
+  color: #111111;
+
+  font-family: "Times New Roman", Times, serif;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+}
+
+/* =====================================================
+   OFFICIAL HEADER
+===================================================== */
+
+.official-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.obando-logo {
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 10px;
+}
+
+.logo-placeholder {
+  width: 75px;
+  height: 75px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #333;
+  border-radius: 50%;
+
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.header-line {
+  font-size: 14px;
+  line-height: 1;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.header-line.municipality {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.header-line.office {
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.header-underline {
+  width: 100%;
+
+  margin-top: 8px;
+
+  border-bottom: 2px solid #111;
+}
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.certificate-date {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: end;
+  font-size: 14px;
+}
+
+/* =====================================================
+   CERTIFICATE TITLE
+===================================================== */
+
+.certificate-main-title {
+  margin-bottom: 15px;
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+}
+
+.certificate-main-title h1 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  letter-spacing: 0.4px;
+}
+
+/* =====================================================
+   FORMAL SECTIONS
+===================================================== */
+
+.formal-section {
+  margin-bottom: 22px;
+}
+
+.formal-section h2 {
+  margin: 0 0 10px;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.formal-paragraph {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  text-align: justify;
+}
+
+/* =====================================================
+   IDENTIFYING INFORMATION
+===================================================== */
+
+.identifying-info {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  font-size: 14px;
+}
+
+.identifying-info > div {
+  display: flex;
+  align-items: flex-start;
+}
+
+.identifying-info strong {
+  min-width: 165px;
+  flex-shrink: 0;
+}
+
+.identifying-info span {
+  flex: 1;
+}
+
+/* =====================================================
+   FAMILY COMPOSITION TABLE
+===================================================== */
+
+.formal-family-table {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.formal-family-table table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 11px;
+}
+
+.formal-family-table th,
+.formal-family-table td {
+  padding: 6px 5px;
+
+  border: 1px solid #111;
+
+  text-align: center;
+
+  vertical-align: middle;
+}
+
+.formal-family-table th {
+  font-weight: 700;
+}
+
+.formal-family-table td:first-child {
+  text-align: left;
+}
+
+.empty-table-cell {
+  padding: 14px !important;
+
+  text-align: center !important;
+}
+
+/* =====================================================
+   FORMAL FIELDS
+===================================================== */
+
+.formal-field {
+  margin-bottom: 15px;
+}
+
+.formal-field strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 14px;
+}
+
+.formal-field p {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  text-align: justify;
+}
+
+/* =====================================================
+   SIGNATURES
+===================================================== */
+
+.formal-signatures {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 60px;
+
+  margin-top: 55px;
+
+  font-size: 13px;
+}
+
+.signature-column {
+  display: flex;
+  flex-direction: column;
+
+  text-align: left;
+}
+
+.signature-column p {
+  margin: 0 0 35px;
+}
+
+.signature-space {
+  height: 1px;
+
+  margin-bottom: 4px;
+
+  border-bottom: 1px solid transparent;
+}
+
+.signature-column strong {
+  font-size: 13px;
+}
+
+.signature-column span {
+  font-size: 12px;
+}
+
+/* =====================================================
+   CERTIFICATE BOTTOM
+===================================================== */
+
+.certificate-bottom {
+  margin-top: 40px;
+  padding-top: 12px;
+
+  border-top: 1px solid #777;
+
+  font-size: 11px;
+}
+
+.certificate-bottom p {
+  margin: 3px 0;
+}
+
+/* =====================================================
+   MODAL FOOTER
+===================================================== */
+
+.cert-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding: 16px 24px;
+
+  border-top: 1px solid #e5e7eb;
+
+  background: #ffffff;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 800px) {
+  .cert-modal-overlay {
+    padding: 10px;
+  }
+
+  .certificate-paper {
+    width: 100%;
+    min-height: auto;
+
+    padding: 30px 25px;
+
+    margin: 10px auto;
+  }
+
+  .formal-signatures {
+    gap: 25px;
+  }
+}
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #certificate-print,
+  #certificate-print * {
+    visibility: visible;
+  }
+
+  #certificate-print {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 8.5in;
+    min-height: 11in;
+
+    margin: 0;
+
+    padding: 0.7in 0.75in;
+
+    box-shadow: none;
+  }
+
+  .cert-modal-overlay {
+    position: static;
+
+    display: block;
+
+    padding: 0;
+
+    background: none;
+  }
+
+  .cert-modal {
+    width: auto;
+    max-height: none;
+
+    display: block;
+
+    overflow: visible;
+
+    box-shadow: none;
+  }
+
+  .cert-modal-header,
+  .cert-modal-footer {
+    display: none !important;
+  }
+
+  .certificate-paper {
+    overflow: visible;
+  }
+
+  @page {
+    size: Letter;
+    margin: 0;
+  }
+}
+.certificate-header {
+  text-align: center;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.obando-logo {
+  display: block;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  margin: 0 auto 8px;
+}
+.content-info {
+  text-indent: 50px;
+}
+.family-income-formal-signatures .signature-column {
+  font-family: "Courier New", Courier, monospace !important;
+}
+.family-income-formal-signatures .middle-signature,
+.family-income-formal-signatures .date-issuance {
+  text-align: center;
+}

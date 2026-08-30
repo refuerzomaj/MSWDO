@@ -12,6 +12,72 @@ export type Page =
   | "reports"
   | "settings";
 
+export type CertificationType =
+  | "Social Case Study Report"
+  | "Inter-Agency Referral Form"
+  | "Certificate of Family Income";
+
+export type TargetInstitution = "PCSO" | "Ofc of the President";
+
+export type CertificationFamilyMember = {
+  id: string;
+  name: string;
+  relationship: string;
+  age: number;
+  civilStatus: string;
+  educationalAttainment: string;
+  occupation: string;
+  income: number;
+};
+
+export type CertificationRecord = {
+  id: string;
+  type: CertificationType;
+
+  // Person information
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  suffix: string;
+  age: number;
+  dateOfBirth: string;
+  birthplace: string;
+  gender: string;
+  civilStatus: string;
+  educationalAttainment: string;
+  occupation: string;
+  contactNo: string;
+  address: string;
+
+  // Target institution
+  targetInstitution: string;
+
+  // Certification details
+  purpose: string;
+  requestedDate: string;
+
+  // Family
+  familyMembers: CertificationFamilyMember[];
+
+  // Social Case Study Report
+  presentingProblem: string;
+  familySituation: string;
+  assessment: string;
+  recommendation: string;
+
+  // Inter-Agency Referral
+  referredTo: string;
+  reasonForReferral: string;
+  servicesNeeded: string;
+  referralRemarks: string;
+
+  // Certificate of Family Income
+  monthlyFamilyIncome: number;
+  incomeSource: string;
+  numberOfFamilyMembers: number;
+  incomeRemarks: string;
+};
+
 export interface FamilyMember {
   id: string;
   name: string;

@@ -7,6 +7,7 @@ type Props = {
 };
 const crumbs: Record<Page, string> = {
   dashboard: "Home / Dashboard",
+  certification: "Home / Certification",
   people: "People / All Records",
   form: "People / Add Person",
   view: "People / View",
