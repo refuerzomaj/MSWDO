@@ -10,11 +10,10 @@ export default function Sidebar({ page, setPage, onAddPerson }: Props) {
   const items: [Page, string][] = [
     ["dashboard", "Dashboard"],
     ["certification", "Certification"],
+    ["savedcertificates", "Saved Certificates"],
     ["people", "People"],
     ["form", "Add Person"],
-    ["preview", "Print Preview"],
     ["reports", "Reports"],
-    ["settings", "Settings"],
   ];
 
   return (

@@ -1,7 +1,11 @@
 import { useState } from "react";
-import type { Page } from "./types";
+
+import type { Page, CertificationRecord } from "./types";
+
 import { initialPeople } from "./data";
+
 import Certification from "./components/Certfication";
+import SavedCertificates from "./components/SavedCertificates";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Dashboard from "./components/Dashboard";
@@ -13,16 +17,30 @@ import Reports from "./components/Reports";
 import Settings from "./components/Settings";
 
 export default function App() {
+  // =====================================================
+  // PEOPLE STATE
+  // =====================================================
+
   const [people, setPeople] = useState(initialPeople);
 
-  const [page, setPage] = useState<Page>("people");
+  const [page, setPage] = useState<Page>("dashboard");
 
-  // null = ADD MODE
-  // person ID = UPDATE MODE
   const [currentId, setCurrentId] = useState<string | null>(null);
 
   const [search, setSearch] = useState("");
+
   const [message, setMessage] = useState("");
+
+  // =====================================================
+  // CERTIFICATION EDIT STATE
+  // =====================================================
+
+  const [editCertification, setEditCertification] =
+    useState<CertificationRecord | null>(null);
+
+  // =====================================================
+  // TOAST MESSAGE
+  // =====================================================
 
   const toast = (m: string) => {
     setMessage(m);
@@ -32,14 +50,20 @@ export default function App() {
     }, 2200);
   };
 
+  // =====================================================
+  // CURRENT PERSON
+  // =====================================================
+
   const current = people.find((person) => person.id === currentId);
 
-  /*
-   * Normal navigation
-   */
+  // =====================================================
+  // NAVIGATION
+  // =====================================================
+
   const navigate = (p: Page) => {
     setPage(p);
 
+    // Clear search when leaving People page
     if (p !== "people") {
       setSearch("");
     }
@@ -47,12 +71,10 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-  /*
-   * ADD PERSON
-   *
-   * Set currentId to null so PersonForm
-   * knows it should show an empty form.
-   */
+  // =====================================================
+  // ADD PERSON
+  // =====================================================
+
   const addPerson = () => {
     setCurrentId(null);
     setPage("form");
@@ -60,11 +82,10 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-  /*
-   * EDIT PERSON
-   *
-   * Set currentId to the selected person's ID.
-   */
+  // =====================================================
+  // EDIT PERSON
+  // =====================================================
+
   const editPerson = (id: string) => {
     setCurrentId(id);
     setPage("form");
@@ -72,22 +93,57 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-  /*
-   * DELETE PERSON
-   */
+  // =====================================================
+  // DELETE PERSON
+  // =====================================================
+
   const deletePerson = (id: string) => {
     setPeople((prev) => prev.filter((person) => person.id !== id));
 
     setCurrentId(null);
+
     toast("Person record deleted");
+
     navigate("people");
   };
 
+  // =====================================================
+  // EDIT CERTIFICATION
+  // =====================================================
+
+  const editCertificate = (certificate: CertificationRecord) => {
+    setEditCertification(certificate);
+
+    navigate("certification");
+  };
+
+  // =====================================================
+  // FINISHED EDITING CERTIFICATION
+  // =====================================================
+
+  const finishedEditingCertificate = () => {
+    setEditCertification(null);
+
+    navigate("savedcertificates");
+  };
+
+  // =====================================================
+  // RETURN
+  // =====================================================
+
   return (
     <div className="app">
+      {/* =================================================
+          SIDEBAR
+      ================================================= */}
+
       <Sidebar page={page} setPage={navigate} onAddPerson={addPerson} />
 
       <div className="main">
+        {/* =================================================
+            TOPBAR
+        ================================================= */}
+
         <Topbar
           page={page}
           setPage={navigate}
@@ -96,6 +152,10 @@ export default function App() {
         />
 
         <div className="content">
+          {/* =================================================
+              DASHBOARD
+          ================================================= */}
+
           {page === "dashboard" && (
             <Dashboard
               people={people}
@@ -104,9 +164,33 @@ export default function App() {
             />
           )}
 
+          {/* =================================================
+              CERTIFICATION
+          ================================================= */}
+
           {page === "certification" && (
-            <Certification setPage={navigate} toast={toast} />
+            <Certification
+              setPage={navigate}
+              toast={toast}
+              editCertification={editCertification}
+              onFinishedEditing={finishedEditingCertificate}
+            />
           )}
+
+          {/* =================================================
+              SAVED CERTIFICATIONS
+          ================================================= */}
+
+          {page === "savedcertificates" && (
+            <SavedCertificates
+              setPage={navigate}
+              onEditCertificate={editCertificate}
+            />
+          )}
+
+          {/* =================================================
+              PEOPLE
+          ================================================= */}
 
           {page === "people" && (
             <People
@@ -127,6 +211,10 @@ export default function App() {
             />
           )}
 
+          {/* =================================================
+              PERSON FORM
+          ================================================= */}
+
           {page === "form" && (
             <PersonForm
               people={people}
@@ -138,6 +226,10 @@ export default function App() {
             />
           )}
 
+          {/* =================================================
+              PERSON VIEW
+          ================================================= */}
+
           {page === "view" && (
             <PersonView
               person={current}
@@ -147,15 +239,35 @@ export default function App() {
             />
           )}
 
+          {/* =================================================
+              PRINT PREVIEW
+          ================================================= */}
+
           {page === "preview" && (
             <PrintPreview person={current} setPage={navigate} />
           )}
 
-          {page === "reports" && <Reports people={people} />}
+          {/* =================================================
+              REPORTS
+              
+              IMPORTANT:
+              Reports now loads certifications directly
+              from the backend, so DON'T pass people.
+          ================================================= */}
+
+          {page === "reports" && <Reports />}
+
+          {/* =================================================
+              SETTINGS
+          ================================================= */}
 
           {page === "settings" && <Settings toast={toast} />}
         </div>
       </div>
+
+      {/* =================================================
+          TOAST
+      ================================================= */}
 
       {message && <div className="toast show">{message}</div>}
     </div>

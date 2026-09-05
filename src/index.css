@@ -1,678 +1,1265 @@
+/* =========================================================
+   ROOT VARIABLES
+   Global colors, sizes, spacing, and layout variables
+   ========================================================= */
+
 :root {
   --navy: #0f2744;
   --navy-2: #16375f;
   --teal: #1a9b8a;
   --teal-dark: #148074;
+
   --bg: #f4f6f8;
   --card: #ffffff;
+
   --text: #1c2430;
   --muted: #6b7785;
+
   --line: #e4e8ee;
+
   --danger: #c23b3b;
   --warn: #b45309;
   --ok: #0f7a5a;
+
   --shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+
   --radius: 10px;
+
+  /* Sidebar width */
   --sidebar: 240px;
 }
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+
+/* Apply border-box sizing to every element */
 * {
   box-sizing: border-box;
 }
+
+/* Remove default browser spacing */
 html,
 body {
   margin: 0;
   height: 100%;
 }
+
+/* Main body styling */
 body {
   font-family: "Segoe UI", Inter, system-ui, sans-serif;
   color: var(--text);
   background: var(--bg);
 }
+
+/* Make form controls use the same font */
 button,
 input,
 select,
 textarea {
   font: inherit;
 }
+
+/* Default link styling */
 a {
   color: inherit;
 }
 
+/* =========================================================
+   MAIN APPLICATION LAYOUT
+   ========================================================= */
+
+/* Main application uses sidebar + content */
 .app {
   display: grid;
   grid-template-columns: var(--sidebar) 1fr;
   min-height: 100vh;
 }
 
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+/* Sidebar container */
 .sidebar {
   background: var(--navy);
   color: #d7e2ef;
+
   display: flex;
   flex-direction: column;
+
   padding: 18px 12px;
 }
+
+/* Application brand */
 .brand {
   display: flex;
   align-items: center;
   gap: 10px;
+
   padding: 6px 10px 22px;
+
   text-decoration: none;
   color: #fff;
 }
+
+/* Logo container */
 .logo {
   width: 34px;
   height: 34px;
+
   border-radius: 8px;
+
   background: var(--teal);
   color: #fff;
+
   font-weight: 700;
+
   display: grid;
   place-items: center;
+
   font-size: 12px;
 }
+
+/* Small brand description */
 .brand small {
   display: block;
+
   color: #94a8bd;
+
   font-size: 11px;
+
   margin-top: 1px;
 }
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+/* Navigation container */
 .nav {
   display: flex;
   flex-direction: column;
+
   gap: 4px;
+
   flex: 1;
 }
+
+/* Navigation buttons */
 .nav button {
   appearance: none;
+
   border: 0;
+
   background: transparent;
+
   color: #c9d7e6;
+
   text-align: left;
+
   padding: 10px 12px;
+
   border-radius: 8px;
+
   cursor: pointer;
+
   display: flex;
   align-items: center;
+
   gap: 10px;
 }
+
+/* Navigation hover */
 .nav button:hover {
   background: var(--navy-2);
   color: #fff;
 }
+
+/* Active navigation item */
 .nav button.active {
   background: var(--teal);
   color: #fff;
 }
+
+/* Navigation icons */
 .nav svg {
   width: 18px;
   height: 18px;
+
   flex: 0 0 18px;
 }
+
+/* =========================================================
+   USER BOX
+   ========================================================= */
+
+/* User information at bottom of sidebar */
 .userbox {
   margin-top: auto;
+
   padding: 12px 10px 4px;
+
   display: flex;
   align-items: center;
+
   gap: 10px;
+
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+/* User avatar */
 .avatar {
   width: 32px;
   height: 32px;
+
   border-radius: 50%;
+
   display: grid;
   place-items: center;
+
   color: #fff;
+
   font-size: 12px;
   font-weight: 700;
+
   flex: 0 0 32px;
 }
+
+/* User name */
 .userbox .meta {
   font-size: 13px;
   color: #fff;
 }
+
+/* User role/details */
 .userbox .meta span {
   display: block;
+
   color: #94a8bd;
+
   font-size: 11px;
 }
 
+/* =========================================================
+   MAIN CONTENT AREA
+   ========================================================= */
+
 .main {
   min-width: 0;
+
   display: flex;
   flex-direction: column;
 }
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
 .topbar {
   background: #fff;
+
   border-bottom: 1px solid var(--line);
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 16px;
+
   padding: 14px 24px;
+
   min-height: 64px;
 }
+
+/* Breadcrumb */
 .crumbs {
   color: var(--muted);
   font-size: 13px;
 }
+
+/* Current breadcrumb */
 .crumbs b {
   color: var(--text);
   font-weight: 600;
 }
+
+/* Top-right actions */
 .top-actions {
   display: flex;
   align-items: center;
+
   gap: 10px;
+
   flex-shrink: 0;
 }
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
 .search {
   width: min(220px, 28vw);
+
   min-width: 140px;
+
   height: 38px;
+
   border: 1px solid var(--line);
+
   border-radius: 8px;
+
   padding: 0 12px 0 34px;
+
   background: #fff
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236b7785' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3-3'/%3E%3C/svg%3E")
     10px 50% no-repeat;
 }
+
+/* =========================================================
+   NOTIFICATION BELL
+   ========================================================= */
+
 .bell {
   width: 38px;
   height: 38px;
+
   border: 1px solid var(--line);
+
   background: #fff;
+
   border-radius: 8px;
+
   cursor: pointer;
+
   position: relative;
 }
+
+/* Notification counter */
 .bell::after {
   content: "3";
+
   position: absolute;
+
   top: -6px;
   right: -6px;
+
   background: var(--danger);
+
   color: #fff;
+
   font-size: 10px;
+
   width: 16px;
   height: 16px;
+
   border-radius: 50%;
+
   display: grid;
   place-items: center;
 }
+
+/* =========================================================
+   PAGE CONTENT
+   ========================================================= */
+
 .content {
   padding: 22px 24px 40px;
 }
 
+/* Hide inactive pages */
 .page {
   display: none;
 }
+
+/* Show active page */
 .page.active {
   display: block;
 }
 
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
 h1 {
   margin: 0 0 6px;
+
   font-size: 24px;
+
   letter-spacing: -0.02em;
 }
+
+/* Page subtitle */
 .sub {
   margin: 0 0 18px;
+
   color: var(--muted);
+
   font-size: 14px;
 }
+
+/* =========================================================
+   FLEX ROW
+   ========================================================= */
 
 .row {
   display: flex;
+
   gap: 12px;
+
   align-items: center;
+
   flex-wrap: wrap;
 }
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
 .stats {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 12px;
+
   margin: 14px 0 18px;
 }
+
+/* Statistic and card base */
 .stat,
 .card {
   background: var(--card);
+
   border: 1px solid var(--line);
+
   border-radius: var(--radius);
+
   box-shadow: var(--shadow);
 }
+
+/* Statistic card */
 .stat {
   padding: 16px 18px;
 }
+
+/* Statistic label */
 .stat .k {
   color: var(--muted);
+
   font-size: 12px;
 }
+
+/* Statistic value */
 .stat .v {
   font-size: 26px;
+
   font-weight: 700;
+
   margin-top: 4px;
 }
+
+/* =========================================================
+   CHIPS
+   ========================================================= */
+
 .chips {
   display: flex;
+
   gap: 8px;
-}
-.chip {
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--text);
-  border-radius: 999px;
-  padding: 6px 12px;
-  cursor: pointer;
-  font-size: 13px;
-}
-.chip.active {
-  background: var(--teal);
-  border-color: var(--teal);
-  color: #fff;
-}
 
-.btn {
-  border: 1px solid transparent;
-  border-radius: 8px;
-  height: 38px;
-  padding: 0 14px;
-  cursor: pointer;
-  background: #fff;
-  color: var(--text);
-}
-.btn:hover {
-  filter: brightness(0.98);
-}
-.btn.primary {
-  background: var(--teal);
-  color: #fff;
-}
-.btn.primary:hover {
-  background: var(--teal-dark);
-}
-.btn.outline {
-  border-color: var(--teal);
-  color: var(--teal);
-  background: #fff;
-}
-.btn.ghost {
-  background: transparent;
-}
-.btn.danger {
-  background: #f8eaea;
-  color: var(--danger);
-}
-.btn.sm {
-  height: 30px;
-  padding: 0 8px;
-  font-size: 12px;
-  border: 1px solid var(--line);
-}
-.btn.sm.danger {
-  color: var(--danger);
-  border-color: #f0c9c9;
-  background: #fff;
-}
-.actions {
-  display: flex;
-  gap: 6px;
-  flex-wrap: nowrap;
-}
-
-.table-wrap {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: auto;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-th,
-td {
-  padding: 12px 14px;
-  text-align: left;
-  border-bottom: 1px solid var(--line);
-  white-space: nowrap;
-}
-th {
-  color: var(--muted);
-  font-weight: 600;
-  background: #fafbfc;
-  font-size: 12px;
-}
-.person-cell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.badge {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 999px;
-  font-size: 12px;
-}
-.badge.ok {
-  background: #e7f6ef;
-  color: var(--ok);
-}
-.badge.off {
-  background: #eef1f4;
-  color: var(--muted);
-}
-.pager {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 4px 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.section {
-  padding: 18px;
-}
-.section h2 {
-  margin: 0 0 14px;
-  font-size: 15px;
-}
-.fields {
-  display: grid;
-  gap: 12px;
-}
-.g2 {
-  grid-template-columns: 1fr 1fr;
-}
-.g3 {
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.g4 {
-  grid-template-columns: 1.2fr 1fr 1.2fr 0.7fr;
-}
-label {
-  display: block;
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 5px;
-}
-label .req {
-  color: var(--danger);
-}
-input[type="text"],
-input[type="email"],
-input[type="date"],
-input[type="tel"],
-select,
-textarea {
-  width: 100%;
-  height: 38px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0 10px;
-  background: #fff;
-}
-textarea {
-  height: 72px;
-  padding: 8px 10px;
-  resize: vertical;
-}
-input:disabled {
-  background: #f3f5f7;
-  color: var(--muted);
-}
-.radios {
-  display: flex;
-  gap: 14px;
-  height: 38px;
-  align-items: center;
-}
-.upload {
-  border: 1px dashed #c5d0db;
-  border-radius: 10px;
-  padding: 22px;
-  text-align: center;
-  color: var(--muted);
-  cursor: pointer;
-  background: #fafcfd;
-}
-.form-foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-  gap: 12px;
   flex-wrap: wrap;
 }
 
-.detail {
+/* Chip button */
+.chip {
+  border: 1px solid var(--line);
+
+  background: #fff;
+
+  color: var(--text);
+
+  border-radius: 999px;
+
+  padding: 6px 12px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+}
+
+/* Active chip */
+.chip.active {
+  background: var(--teal);
+
+  border-color: var(--teal);
+
+  color: #fff;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+  border: 1px solid transparent;
+
+  border-radius: 8px;
+
+  height: 38px;
+
+  padding: 0 14px;
+
+  cursor: pointer;
+
+  background: #fff;
+
+  color: var(--text);
+}
+
+/* Button hover */
+.btn:hover {
+  filter: brightness(0.98);
+}
+
+/* Primary button */
+.btn.primary {
+  background: var(--teal);
+
+  color: #fff;
+}
+
+/* Primary hover */
+.btn.primary:hover {
+  background: var(--teal-dark);
+}
+
+/* Outline button */
+.btn.outline {
+  border-color: var(--teal);
+
+  color: var(--teal);
+
+  background: #fff;
+}
+
+/* Ghost button */
+.btn.ghost {
+  background: transparent;
+}
+
+/* Danger button */
+.btn.danger {
+  background: #f8eaea;
+
+  color: var(--danger);
+}
+
+/* Small button */
+.btn.sm {
+  height: 30px;
+
+  padding: 0 8px;
+
+  font-size: 12px;
+
+  border: 1px solid var(--line);
+}
+
+/* Small danger button */
+.btn.sm.danger {
+  color: var(--danger);
+
+  border-color: #f0c9c9;
+
+  background: #fff;
+}
+
+/* =========================================================
+   BUTTON ACTION GROUP
+   ========================================================= */
+
+.actions {
+  display: flex;
+
+  gap: 6px;
+
+  flex-wrap: nowrap;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table-wrap {
+  background: #fff;
+
+  border: 1px solid var(--line);
+
+  border-radius: var(--radius);
+
+  overflow: auto;
+}
+
+/* Table */
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 13px;
+}
+
+/* Table cells */
+th,
+td {
+  padding: 12px 14px;
+
+  text-align: left;
+
+  border-bottom: 1px solid var(--line);
+
+  white-space: nowrap;
+}
+
+/* Table headers */
+th {
+  color: var(--muted);
+
+  font-weight: 600;
+
+  background: #fafbfc;
+
+  font-size: 12px;
+}
+
+/* Person cell */
+.person-cell {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.badge {
+  display: inline-block;
+
+  padding: 3px 8px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+}
+
+/* Active badge */
+.badge.ok {
+  background: #e7f6ef;
+
+  color: var(--ok);
+}
+
+/* Inactive badge */
+.badge.off {
+  background: #eef1f4;
+
+  color: var(--muted);
+}
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.pager {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 12px 4px 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+/* =========================================================
+   FORM LAYOUT
+   ========================================================= */
+
+.form-grid {
   display: grid;
-  grid-template-columns: 220px 1fr;
+
+  grid-template-columns: 1fr 1fr;
+
   gap: 16px;
 }
+
+/* Form section */
+.section {
+  padding: 18px;
+}
+
+/* Section title */
+.section h2 {
+  margin: 0 0 14px;
+
+  font-size: 15px;
+}
+
+/* =========================================================
+   FORM FIELD GRID
+   ========================================================= */
+
+.fields {
+  display: grid;
+
+  gap: 12px;
+
+  width: 100%;
+
+  max-width: 100%;
+}
+
+/* Two columns */
+.g2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Three columns */
+.g3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Four columns */
+.g4 {
+  grid-template-columns:
+    1.2fr
+    1fr
+    1.2fr
+    0.7fr;
+}
+
+/* Full width field */
+.field-full {
+  grid-column: 1 / -1;
+}
+
+/* =========================================================
+   LABELS
+   ========================================================= */
+
+label {
+  display: block;
+
+  font-size: 12px;
+
+  color: var(--muted);
+
+  margin-bottom: 5px;
+}
+
+/* Required field indicator */
+label .req {
+  color: var(--danger);
+}
+
+/* =========================================================
+   ALL FORM INPUTS
+   SAME BORDER / SAME SIZE
+   ========================================================= */
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+select,
+textarea {
+  width: 100%;
+
+  max-width: 100%;
+
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Normal input height */
+input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+select {
+  height: 38px;
+
+  padding: 0 12px;
+}
+
+/* Textarea */
+textarea {
+  min-height: 100px;
+
+  padding: 10px 12px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   FORM INPUT FOCUS
+   Same focus appearance for every field
+   ========================================================= */
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):focus,
+select:focus,
+textarea:focus {
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* =========================================================
+   FORM PLACEHOLDER
+   ========================================================= */
+
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af;
+
+  opacity: 1;
+}
+
+/* =========================================================
+   DISABLED INPUTS
+   ========================================================= */
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background: #f3f5f7;
+
+  color: var(--muted);
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   RADIO BUTTONS
+   ========================================================= */
+
+.radios {
+  display: flex;
+
+  gap: 14px;
+
+  min-height: 38px;
+
+  align-items: center;
+}
+
+/* =========================================================
+   UPLOAD AREA
+   ========================================================= */
+
+.upload {
+  border: 1px dashed #c5d0db;
+
+  border-radius: 10px;
+
+  padding: 22px;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  cursor: pointer;
+
+  background: #fafcfd;
+}
+
+/* =========================================================
+   FORM FOOTER
+   ========================================================= */
+
+.form-foot {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: 16px;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+/* =========================================================
+   DETAIL / PROFILE
+   ========================================================= */
+
+.detail {
+  display: grid;
+
+  grid-template-columns: 220px 1fr;
+
+  gap: 16px;
+}
+
+/* Profile card */
 .profile-card {
   padding: 22px;
+
   text-align: center;
 }
+
+/* Large profile avatar */
 .profile-card .big {
   width: 88px;
   height: 88px;
+
   border-radius: 50%;
+
   margin: 0 auto 12px;
+
   font-size: 28px;
 }
+
+/* Key-value layout */
 .kv {
   display: grid;
+
   grid-template-columns: 180px 1fr;
+
   gap: 8px 16px;
+
   font-size: 14px;
 }
+
+/* Key labels */
 .kv div:nth-child(odd) {
   color: var(--muted);
 }
 
+/* =========================================================
+   PREVIEW STAGE
+   ========================================================= */
+
 .preview-stage {
   background: #e8edf2;
+
   border-radius: 12px;
+
   padding: 28px;
 }
+
+/* Preview toolbar */
 .toolbar {
   display: flex;
+
   justify-content: space-between;
+
   margin-bottom: 14px;
+
   color: var(--muted);
+
   font-size: 13px;
 }
+
+/* =========================================================
+   OLD SHEET PREVIEW
+   ========================================================= */
+
 .sheet {
   width: min(760px, 100%);
+
   margin: 0 auto;
+
   background: #fff;
+
   min-height: 980px;
+
   padding: 36px 40px;
+
   border: 1px solid #d5dde6;
 }
+
+/* Sheet header */
 .sheet-head {
   display: flex;
+
   justify-content: space-between;
+
   gap: 16px;
+
   border-bottom: 2px solid var(--navy);
+
   padding-bottom: 14px;
 }
+
+/* Sheet title */
 .sheet h3 {
   margin: 0;
+
   letter-spacing: 0.04em;
 }
+
+/* ID photo */
 .sheet .idphoto {
   width: 84px;
   height: 102px;
+
   border: 1px solid var(--line);
+
   display: grid;
   place-items: center;
+
   font-weight: 700;
+
   color: #fff;
 }
+
+/* =========================================================
+   OLD PREVIEW BLOCKS
+   ========================================================= */
+
 .block {
   margin-top: 18px;
 }
+
 .block h4 {
   margin: 0 0 8px;
+
   background: var(--navy);
+
   color: #fff;
+
   font-size: 12px;
+
   padding: 6px 10px;
 }
+
+/* =========================================================
+   SIGNATURES
+   ========================================================= */
+
 .sig {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 40px;
+
   margin-top: 48px;
+
   font-size: 12px;
+
   color: var(--muted);
 }
+
 .sig .line {
   border-top: 1px solid #bbb;
+
   margin-top: 48px;
+
   padding-top: 6px;
 }
 
+/* =========================================================
+   DASHBOARD GRID
+   ========================================================= */
+
 .dash-grid {
   display: grid;
+
   grid-template-columns: 2fr 1fr;
+
   gap: 16px;
 }
+
+/* =========================================================
+   SIMPLE LIST
+   ========================================================= */
+
 .list-plain {
   list-style: none;
+
   margin: 0;
+
   padding: 0;
 }
+
 .list-plain li {
   display: flex;
+
   justify-content: space-between;
+
   padding: 10px 0;
+
   border-bottom: 1px solid var(--line);
+
   font-size: 14px;
 }
 
+/* =========================================================
+   GENERIC MODAL
+   ========================================================= */
+
 .modal-back {
   position: fixed;
+
   inset: 0;
+
   background: rgba(15, 39, 68, 0.45);
+
   display: none;
+
   place-items: center;
+
   z-index: 50;
 }
+
+/* Show generic modal */
 .modal-back.show {
   display: grid;
 }
+
+/* Generic modal */
 .modal {
   width: min(440px, calc(100% - 32px));
+
   background: #fff;
+
   border-radius: 12px;
+
   padding: 22px;
 }
+
+/* =========================================================
+   TOAST NOTIFICATION
+   Used for saved / updated messages
+   ========================================================= */
+
 .toast {
   position: fixed;
+
   right: 20px;
+
   bottom: 20px;
+
   background: var(--navy);
+
   color: #fff;
+
   padding: 12px 16px;
+
   border-radius: 8px;
+
   display: none;
-  z-index: 60;
+
+  z-index: 10000;
+
   font-size: 14px;
 }
+
+/* Show toast */
 .toast.show {
   display: block;
 }
 
-@media (max-width: 980px) {
-  .app {
-    grid-template-columns: 1fr;
-  }
-  .sidebar {
-    display: none;
-  }
-  .form-grid,
-  .detail,
-  .dash-grid,
-  .g2,
-  .g3,
-  .g4 {
-    grid-template-columns: 1fr;
-  }
-  .stats {
-    grid-template-columns: 1fr;
-  }
-}
-@media print {
-  .sidebar,
-  .topbar,
-  .toolbar,
-  .top-actions,
-  .btn,
-  .nav,
-  .toast,
-  .modal-back {
-    display: none !important;
-  }
-  .app {
-    display: block;
-  }
-  .content {
-    padding: 0;
-  }
-  .preview-stage {
-    background: #fff;
-    padding: 0;
-  }
-  .sheet {
-    border: 0;
-    width: 100%;
-  }
+/* =========================================================
+   CERTIFICATION PAGE
+   ========================================================= */
+
+.certification-page {
+  width: 100%;
+
+  max-width: 100%;
+
+  box-sizing: border-box;
 }
 
-.local-search {
-  display: none;
-}
-@media print {
-  .local-search {
-    display: none !important;
-  }
-}
-
-/* =========================================
-   CERTIFICATION
-========================================= */
+/* =========================================================
+   CERTIFICATION SELECTOR
+   ========================================================= */
 
 .certification-selector {
+  width: 100%;
+
   max-width: 750px;
+
   margin-top: 24px;
 }
+
+.certification-selection {
+  width: 100%;
+}
+
+.certification-select-wrapper {
+  width: 100%;
+
+  max-width: 600px;
+}
+
+.certification-select-wrapper label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-weight: 600;
+}
+
+.certification-select-wrapper select {
+  width: 100%;
+}
+
+/* =========================================================
+   CERTIFICATION OPTIONS
+   ========================================================= */
 
 .certification-options {
   display: flex;
+
   flex-direction: column;
+
   gap: 12px;
+
   margin-top: 24px;
 }
 
+/* Certification option button */
 .certification-option {
   width: 100%;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 
   padding: 20px;
 
   border: 1px solid #e5e7eb;
+
   border-radius: 12px;
 
   background: #fff;
@@ -687,6 +1274,7 @@ input:disabled {
     border-color 0.15s ease;
 }
 
+/* Certification option hover */
 .certification-option:hover {
   transform: translateY(-1px);
 
@@ -695,18 +1283,21 @@ input:disabled {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
+/* Certification option title */
 .certification-option-title {
   font-size: 16px;
+
   font-weight: 600;
 }
 
+/* Certification option arrow */
 .certification-option-arrow {
   font-size: 22px;
 }
 
-/* =========================================
+/* =========================================================
    SELECTED CERTIFICATION
-========================================= */
+   ========================================================= */
 
 .certification-selected {
   display: flex;
@@ -716,15 +1307,19 @@ input:disabled {
   justify-content: space-between;
 
   gap: 20px;
+
+  flex-wrap: wrap;
 }
 
 .certification-selected > div {
   display: flex;
+
   flex-direction: column;
 
   gap: 5px;
 }
 
+/* Field label */
 .field-label {
   font-size: 12px;
 
@@ -735,9 +1330,21 @@ input:disabled {
   font-weight: 600;
 }
 
-/* =========================================
-   FAMILY
-========================================= */
+/* =========================================================
+   CERTIFICATION CARDS
+   ========================================================= */
+
+.certification-page .card {
+  width: 100%;
+
+  max-width: 100%;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   FAMILY SECTION
+   ========================================================= */
 
 .family-header {
   display: flex;
@@ -747,12 +1354,15 @@ input:disabled {
   justify-content: space-between;
 
   gap: 20px;
+
+  flex-wrap: wrap;
 }
 
 .family-header h2 {
   margin-bottom: 4px;
 }
 
+/* Empty family state */
 .empty-family {
   margin-top: 18px;
 
@@ -767,7 +1377,12 @@ input:disabled {
   color: #6b7280;
 }
 
+/* Family member card */
 .family-card {
+  width: 100%;
+
+  max-width: 100%;
+
   margin-top: 18px;
 
   padding: 20px;
@@ -777,8 +1392,13 @@ input:disabled {
   border-radius: 12px;
 
   background: #fafafa;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
 }
 
+/* Family card header */
 .family-card-head {
   display: flex;
 
@@ -786,12 +1406,206 @@ input:disabled {
 
   justify-content: space-between;
 
+  gap: 16px;
+
   margin-bottom: 18px;
+
+  flex-wrap: wrap;
 }
 
-/* =========================================
+/* Family fields */
+.family-card .fields {
+  width: 100%;
+}
+
+/* =========================================================
+   CERTIFICATION FORM FIELD CONTAINERS
+   ========================================================= */
+
+.certification-page .fields {
+  display: grid;
+
+  width: 100%;
+
+  max-width: 100%;
+
+  gap: 16px;
+
+  box-sizing: border-box;
+}
+
+.certification-page .fields > div,
+.certification-page .field-full,
+.certification-page .certification-select-wrapper {
+  width: 100%;
+
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   CERTIFICATION FORM GRID
+   ========================================================= */
+
+/* Three-column layout */
+.certification-page .fields.g3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Two-column layout */
+.certification-page .fields.g2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Four-column layout */
+.certification-page .fields.g4 {
+  grid-template-columns:
+    1.2fr
+    1fr
+    1.2fr
+    0.7fr;
+}
+
+/* Full-width field */
+.certification-page .field-full {
+  grid-column: 1 / -1;
+}
+
+/* =========================================================
+   CERTIFICATION FORM INPUTS
+   Force every certification input to have the same border
+   ========================================================= */
+
+.certification-page
+  input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+.certification-page select,
+.certification-page textarea {
+  width: 100%;
+
+  max-width: 100%;
+
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Certification text/select field height */
+.certification-page
+  input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+.certification-page select {
+  height: 38px;
+
+  padding: 0 12px;
+}
+
+/* Certification textarea */
+.certification-page textarea {
+  min-height: 100px;
+
+  padding: 10px 12px;
+
+  line-height: 1.5;
+
+  resize: vertical;
+}
+
+/* =========================================================
+   CERTIFICATION FORM FOCUS
+   ========================================================= */
+
+.certification-page
+  input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):focus,
+.certification-page select:focus,
+.certification-page textarea:focus {
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* =========================================================
+   CERTIFICATION PLACEHOLDERS
+   ========================================================= */
+
+.certification-page input::placeholder,
+.certification-page textarea::placeholder {
+  color: #9ca3af;
+
+  opacity: 1;
+}
+
+/* =========================================================
+   CERTIFICATION LABELS
+   ========================================================= */
+
+.certification-page label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #374151;
+}
+
+/* =========================================================
+   CERTIFICATION FORM FOOTER
+   ========================================================= */
+
+.certification-page .form-foot {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  flex-wrap: wrap;
+
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
+.certification-page .form-foot .row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.certification-page button {
+  box-sizing: border-box;
+}
+
+/* =========================================================
    CERTIFICATION PREVIEW MODAL
-========================================= */
+   Main modal container
+   ========================================================= */
 
 .cert-modal-overlay {
   position: fixed;
@@ -808,105 +1622,555 @@ input:disabled {
 
   padding: 24px;
 
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.65);
+
+  overflow-y: auto;
 }
+
+/* =========================================================
+   CERTIFICATION MODAL CONTAINER
+   ========================================================= */
 
 .cert-modal {
   width: min(1000px, 100%);
 
-  max-height: 94vh;
+  max-height: 95vh;
 
   display: flex;
 
   flex-direction: column;
 
-  background: #fff;
+  background: #ffffff;
 
-  border-radius: 14px;
+  border-radius: 12px;
 
   overflow: hidden;
 
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
-/* HEADER */
+/* =========================================================
+   CERTIFICATION MODAL HEADER
+   ========================================================= */
 
 .cert-modal-header {
+  position: relative;
+
   display: flex;
 
-  align-items: flex-start;
+  align-items: center;
 
-  justify-content: space-between;
+  justify-content: center;
 
-  gap: 20px;
+  min-height: 70px;
 
-  padding: 20px 24px;
+  padding: 14px 70px;
 
   border-bottom: 1px solid #e5e7eb;
+
+  background: #ffffff;
+
+  flex-shrink: 0;
 }
 
-.cert-modal-header h2 {
+/* =========================================================
+   PRINT BUTTON - TOP LEFT
+   ========================================================= */
+
+.cert-print-top {
+  position: absolute;
+
+  left: 18px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   CERTIFICATION MODAL TITLE
+   ========================================================= */
+
+.cert-modal-title {
+  text-align: center;
+
+  min-width: 0;
+}
+
+.cert-modal-title h2 {
   margin: 0;
+
+  font-size: 20px;
+
+  font-weight: 700;
 }
 
-.cert-modal-header p {
-  margin: 5px 0 0;
+.cert-modal-title p {
+  margin: 4px 0 0;
+
+  font-size: 13px;
 
   color: #6b7280;
 }
 
-.cert-modal-close {
-  width: 38px;
+/* =========================================================
+   CLOSE BUTTON - TOP RIGHT
+   ========================================================= */
 
-  height: 38px;
+.cert-modal-close {
+  position: absolute;
+
+  right: 18px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 36px;
+
+  height: 36px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
 
   border: none;
 
-  border-radius: 8px;
+  border-radius: 6px;
 
   background: transparent;
 
+  color: #374151;
+
   font-size: 28px;
 
+  line-height: 1;
+
   cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
+/* Close button hover */
 .cert-modal-close:hover {
   background: #f3f4f6;
+
+  color: #111827;
 }
 
-/* PAPER */
+/* =========================================================
+   CERTIFICATION MODAL CONTENT
+   ========================================================= */
 
-.certificate-paper {
+.cert-modal-content {
   flex: 1;
-  font-family: "Courier New", Courier, monospace !important;
+
+  min-height: 0;
+
   overflow-y: auto;
 
-  width: min(850px, calc(100% - 40px));
+  background: #f5f5f5;
 
-  margin: 20px auto;
+  padding: 20px;
+}
 
-  padding: 50px;
+/* =========================================================
+   CERTIFICATE PAPER
+   Official Letter-size document
+   ========================================================= */
 
-  background: #fff;
+.certificate-paper {
+  width: 8.5in;
+
+  min-height: 11in;
+
+  margin: 24px auto;
+
+  padding: 0.7in 0.75in;
+
+  background: #ffffff;
+
+  color: #111111;
+
+  font-family: "Times New Roman", Times, serif;
+
+  line-height: 1.5;
+
+  box-sizing: border-box;
 
   border: 1px solid #ddd;
 
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-
-  line-height: 1.6;
 }
 
-/* CERTIFICATE HEADER */
+/* =========================================================
+   OFFICIAL HEADER
+   ========================================================= */
+
+.official-header {
+  text-align: center;
+
+  margin-bottom: 20px;
+}
+
+/* Municipality logo */
+.obando-logo {
+  display: block;
+
+  width: 70px;
+
+  height: 70px;
+
+  object-fit: contain;
+
+  margin: 0 auto 8px;
+}
+
+/* Logo placeholder */
+.logo-placeholder {
+  width: 75px;
+
+  height: 75px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin: 0 auto 10px;
+
+  border: 1px solid #333;
+
+  border-radius: 50%;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+/* Header text */
+.header-line {
+  font-size: 14px;
+
+  line-height: 1;
+
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* Municipality */
+.header-line.municipality {
+  font-size: 16px;
+
+  font-weight: 700;
+}
+
+/* Office */
+.header-line.office {
+  font-size: 15px;
+
+  font-weight: 600;
+
+  text-decoration: underline;
+}
+
+/* Header underline */
+.header-underline {
+  width: 100%;
+
+  margin-top: 8px;
+
+  border-bottom: 2px solid #111;
+}
+
+/* =========================================================
+   CERTIFICATE DATE
+   ========================================================= */
+
+.certificate-date {
+  margin-top: 5px;
+
+  margin-bottom: 5px;
+
+  text-align: right;
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   CERTIFICATE MAIN TITLE
+   ========================================================= */
+
+.certificate-main-title {
+  margin-bottom: 15px;
+
+  font-family: "Courier New", Courier, monospace;
+
+  text-align: center;
+}
+
+.certificate-main-title h1 {
+  margin: 0;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.4px;
+}
+
+/* =========================================================
+   FORMAL SECTIONS
+   ========================================================= */
+
+.formal-section {
+  margin-bottom: 22px;
+}
+
+.formal-section h2 {
+  margin: 0 0 10px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+.formal-paragraph {
+  margin: 0;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  text-align: justify;
+}
+
+/* =========================================================
+   IDENTIFYING INFORMATION
+   ========================================================= */
+
+.identifying-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  font-size: 14px;
+}
+
+.identifying-info > div {
+  display: flex;
+
+  align-items: flex-start;
+}
+
+.identifying-info strong {
+  min-width: 165px;
+
+  flex-shrink: 0;
+}
+
+.identifying-info span {
+  flex: 1;
+
+  word-break: break-word;
+}
+
+/* =========================================================
+   CONTENT INFORMATION
+   ========================================================= */
+
+.content-info {
+  text-indent: 50px;
+}
+
+/* =========================================================
+   FAMILY COMPOSITION TABLE
+   ========================================================= */
+
+.formal-family-table {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.formal-family-table table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 11px;
+}
+
+.formal-family-table th,
+.formal-family-table td {
+  padding: 6px 5px;
+
+  border: 1px solid #111;
+
+  text-align: center;
+
+  vertical-align: middle;
+}
+
+.formal-family-table th {
+  font-weight: 700;
+}
+
+.formal-family-table td:first-child {
+  text-align: left;
+}
+
+/* Empty table message */
+.empty-table-cell {
+  padding: 14px !important;
+
+  text-align: center !important;
+}
+
+/* =========================================================
+   FORMAL FIELDS
+   ========================================================= */
+
+.formal-field {
+  margin-bottom: 15px;
+}
+
+.formal-field strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 14px;
+}
+
+.formal-field p {
+  margin: 0;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  text-align: justify;
+}
+
+/* =========================================================
+   FORMAL SIGNATURES
+   ========================================================= */
+
+.formal-signatures {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 60px;
+
+  margin-top: 55px;
+
+  font-size: 13px;
+}
+
+.signature-column {
+  display: flex;
+
+  flex-direction: column;
+
+  text-align: left;
+}
+
+.signature-column p {
+  margin: 0 0 35px;
+}
+
+.signature-space {
+  height: 1px;
+
+  margin-bottom: 4px;
+
+  border-bottom: 1px solid transparent;
+}
+
+.signature-column strong {
+  font-size: 13px;
+}
+
+.signature-column span {
+  font-size: 12px;
+}
+
+/* =========================================================
+   FAMILY INCOME SIGNATURES
+   ========================================================= */
+
+.family-income-formal-signatures .signature-column {
+  font-family: "Courier New", Courier, monospace !important;
+}
+
+.family-income-formal-signatures .middle-signature,
+.family-income-formal-signatures .date-issuance {
+  text-align: center;
+}
+
+/* =========================================================
+   CERTIFICATE BOTTOM
+   ========================================================= */
+
+.certificate-bottom {
+  margin-top: 40px;
+
+  padding-top: 12px;
+
+  border-top: 1px solid #777;
+
+  font-size: 11px;
+}
+
+.certificate-bottom p {
+  margin: 3px 0;
+}
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+.cert-modal-footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding: 14px 18px;
+
+  border-top: 1px solid #e5e7eb;
+
+  background: #ffffff;
+
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   LEGACY CERTIFICATE PREVIEW
+   Keep these styles if the old preview component is used
+   ========================================================= */
 
 .certificate-header {
   text-align: center;
 
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 
-  padding-bottom: 20px;
-
-  border-bottom: 2px solid #222;
+  line-height: 1.5;
 }
 
 .certificate-header h3 {
@@ -929,7 +2193,9 @@ input:disabled {
   font-size: 23px;
 }
 
-/* SECTIONS */
+/* =========================================================
+   LEGACY CERTIFICATE SECTIONS
+   ========================================================= */
 
 .certificate-section {
   margin-bottom: 28px;
@@ -1015,7 +2281,9 @@ input:disabled {
   color: #777;
 }
 
-/* FAMILY TABLE */
+/* =========================================================
+   LEGACY FAMILY PREVIEW TABLE
+   ========================================================= */
 
 .family-preview-table {
   width: 100%;
@@ -1046,7 +2314,9 @@ input:disabled {
   background: #f5f5f5;
 }
 
-/* FOOTER */
+/* =========================================================
+   LEGACY CERTIFICATE FOOTER
+   ========================================================= */
 
 .certificate-footer {
   margin-top: 50px;
@@ -1070,61 +2340,230 @@ input:disabled {
   border-top: 1px solid #222;
 }
 
-/* MODAL FOOTER */
+/* =========================================================
+   LOCAL SEARCH
+   ========================================================= */
 
-.cert-modal-footer {
-  display: flex;
-
-  justify-content: flex-end;
-
-  gap: 10px;
-
-  padding: 16px 24px;
-
-  border-top: 1px solid #e5e7eb;
-
-  background: #fafafa;
+.local-search {
+  display: none;
 }
 
-/* MOBILE */
+/* =========================================================
+   RESPONSIVE TABLET
+   ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 980px) {
+  /* Remove sidebar on smaller screens */
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  /* Stack major layouts */
+  .form-grid,
+  .detail,
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack statistics */
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  /* Certification 3-column grid becomes 2 columns */
+  .certification-page .fields.g3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Keep two-column fields */
+  .certification-page .fields.g2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Four columns become two */
+  .certification-page .fields.g4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   RESPONSIVE TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+  /* Reduce content padding */
+  .content {
+    padding: 18px 16px 30px;
+  }
+
+  /* Certificate paper becomes responsive */
+  .certificate-paper {
+    width: 100%;
+
+    min-height: auto;
+
+    padding: 30px 25px;
+
+    margin: 10px auto;
+  }
+
+  /* Stack certificate signatures */
+  .formal-signatures {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+  }
+
+  /* Stack identifying information */
+  .identifying-info > div {
+    flex-direction: column;
+
+    gap: 2px;
+  }
+
+  .identifying-info strong {
+    min-width: 0;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  /* Certification fields become one column */
+  .certification-page .fields.g3,
+  .certification-page .fields.g2,
+  .certification-page .fields.g4 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Full width field no longer needs grid span */
+  .certification-page .field-full {
+    grid-column: auto;
+  }
+
+  /* Smaller input padding */
+  .certification-page
+    input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+  .certification-page select,
+  .certification-page textarea {
+    width: 100%;
+
+    max-width: 100%;
+
+    font-size: 14px;
+
+    padding: 10px 11px;
+  }
+
+  /* Select/input height */
+  .certification-page
+    input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+  .certification-page select {
+    height: 40px;
+  }
+
+  /* Family header becomes vertical */
+  .certification-page .family-header {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  /* Family button full width */
+  .certification-page .family-header button {
+    width: 100%;
+  }
+
+  /* Form footer becomes vertical */
+  .certification-page .form-foot {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .certification-page .form-foot > button,
+  .certification-page .form-foot .row {
+    width: 100%;
+  }
+
+  .certification-page .form-foot .row {
+    flex-direction: column;
+  }
+
+  .certification-page .form-foot .row button {
+    width: 100%;
+  }
+
+  /* Modal */
   .cert-modal-overlay {
     padding: 10px;
   }
 
   .cert-modal {
     max-height: 97vh;
+
+    width: 100%;
   }
 
+  /* Modal header */
+  .cert-modal-header {
+    min-height: 110px;
+
+    padding: 55px 55px 12px;
+  }
+
+  /* Print button moves to top-left */
+  .cert-print-top {
+    left: 12px;
+
+    top: 12px;
+
+    transform: none;
+  }
+
+  /* Close button moves to top-right */
+  .cert-modal-close {
+    right: 12px;
+
+    top: 12px;
+
+    transform: none;
+  }
+
+  /* Modal title */
+  .cert-modal-title h2 {
+    font-size: 17px;
+  }
+
+  .cert-modal-title p {
+    font-size: 12px;
+  }
+
+  /* Certificate paper */
   .certificate-paper {
-    width: calc(100% - 20px);
+    width: 100%;
 
-    margin: 10px;
+    padding: 25px 18px;
 
-    padding: 25px;
+    margin: 10px auto;
+
+    border: none;
+
+    box-shadow: none;
   }
 
+  /* Certificate grids */
   .certificate-grid {
     grid-template-columns: 1fr;
   }
 
-  .family-header {
-    flex-direction: column;
-
-    align-items: stretch;
-  }
-
-  .family-header .btn {
-    width: 100%;
-  }
-
-  .certification-selected {
-    flex-direction: column;
-
-    align-items: stretch;
-  }
-
+  /* Modal footer */
   .cert-modal-footer {
     flex-direction: column;
   }
@@ -1133,518 +2572,147 @@ input:disabled {
     width: 100%;
   }
 
+  /* Family table */
+  .formal-family-table {
+    overflow-x: auto;
+  }
+
+  /* Signature grid */
   .signature-grid {
     grid-template-columns: 1fr;
 
     gap: 50px;
   }
+
+  /* Top bar */
+  .topbar {
+    padding: 12px 16px;
+  }
+
+  /* Search becomes smaller */
+  .search {
+    width: 160px;
+
+    min-width: 100px;
+  }
 }
 
-/* PRINT */
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  /* Smaller page spacing */
+  .content {
+    padding: 14px 12px 24px;
+  }
+
+  /* Certification grid spacing */
+  .certification-page .fields {
+    gap: 12px;
+  }
+
+  /* Smaller inputs */
+  .certification-page
+    input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+  .certification-page select,
+  .certification-page textarea {
+    padding: 10px;
+
+    font-size: 14px;
+  }
+
+  /* Smaller labels */
+  .certification-page label {
+    font-size: 13px;
+  }
+
+  /* Smaller card padding */
+  .certification-page .card {
+    padding: 14px;
+  }
+
+  /* Smaller certificate paper */
+  .certificate-paper {
+    padding: 22px 15px;
+  }
+
+  /* Smaller official header */
+  .header-line {
+    font-size: 12px;
+  }
+
+  .header-line.municipality {
+    font-size: 14px;
+  }
+
+  .header-line.office {
+    font-size: 13px;
+  }
+
+  /* Smaller certificate title */
+  .certificate-main-title h1 {
+    font-size: 17px;
+  }
+
+  /* Smaller certificate text */
+  .formal-paragraph,
+  .formal-field p,
+  .identifying-info {
+    font-size: 13px;
+  }
+
+  /* Modal title */
+  .cert-modal-title h2 {
+    font-size: 16px;
+  }
+
+  .cert-modal-title p {
+    display: none;
+  }
+}
+
+/* =========================================================
+   PRINT STYLES
+   Only the certificate should appear when printing
+   ========================================================= */
 
 @media print {
+  /* Hide everything by default */
   body * {
     visibility: hidden !important;
   }
 
+  /* Make the certificate visible */
   #certificate-print,
   #certificate-print * {
     visibility: visible !important;
   }
 
+  /* Position certificate at the top-left */
   #certificate-print {
     position: absolute;
 
     left: 0;
 
-    top: 0;
-
-    width: 100%;
-
-    margin: 0;
-
-    padding: 40px;
-
-    border: none;
-
-    box-shadow: none;
-  }
-}
-.certification-selection {
-  width: 100%;
-}
-
-.certification-select-wrapper {
-  width: 100%;
-  max-width: 600px;
-}
-
-.certification-select-wrapper label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-.certification-select-wrapper select {
-  width: 100%;
-}
-
-/* =====================================================
-   CERTIFICATION PAGE
-===================================================== */
-
-.certification-page {
-  width: 100%;
-}
-
-.certification-select-wrapper {
-  max-width: 600px;
-}
-
-.certification-select-wrapper label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-.certification-select-wrapper select {
-  width: 100%;
-}
-
-/* =====================================================
-   CERTIFICATION MODAL
-===================================================== */
-
-.cert-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 24px;
-
-  background: rgba(0, 0, 0, 0.65);
-
-  overflow-y: auto;
-}
-
-.cert-modal {
-  width: min(1000px, 100%);
-  max-height: 95vh;
-
-  display: flex;
-  flex-direction: column;
-
-  background: #ffffff;
-  border-radius: 12px;
-
-  overflow: hidden;
-
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-}
-
-.cert-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 18px 24px;
-
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.cert-modal-header h2 {
-  margin: 0 0 4px;
-}
-
-.cert-modal-header p {
-  margin: 0;
-
-  color: #6b7280;
-}
-
-.cert-modal-close {
-  width: 38px;
-  height: 38px;
-
-  border: none;
-  border-radius: 8px;
-
-  background: transparent;
-
-  font-size: 28px;
-  line-height: 1;
-
-  cursor: pointer;
-}
-
-.cert-modal-close:hover {
-  background: #f3f4f6;
-}
-
-/* =====================================================
-   CERTIFICATE PAPER
-===================================================== */
-
-.certificate-paper {
-  width: 8.5in;
-  min-height: 11in;
-
-  margin: 24px auto;
-
-  padding: 0.7in 0.75in;
-
-  background: #ffffff;
-
-  color: #111111;
-
-  font-family: "Times New Roman", Times, serif;
-
-  box-sizing: border-box;
-
-  overflow-y: auto;
-}
-
-/* =====================================================
-   OFFICIAL HEADER
-===================================================== */
-
-.official-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.obando-logo {
-  display: flex;
-  justify-content: center;
-
-  margin-bottom: 10px;
-}
-
-.logo-placeholder {
-  width: 75px;
-  height: 75px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid #333;
-  border-radius: 50%;
-
-  font-family: Arial, sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.header-line {
-  font-size: 14px;
-  line-height: 1;
-  font-family: "Courier New", Courier, monospace;
-}
-
-.header-line.municipality {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.header-line.office {
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: underline;
-}
-
-.header-underline {
-  width: 100%;
-
-  margin-top: 8px;
-
-  border-bottom: 2px solid #111;
-}
-
-/* =====================================================
-   DATE
-===================================================== */
-
-.certificate-date {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  text-align: end;
-  font-size: 14px;
-}
-
-/* =====================================================
-   CERTIFICATE TITLE
-===================================================== */
-
-.certificate-main-title {
-  margin-bottom: 15px;
-  font-family: "Courier New", Courier, monospace;
-  text-align: center;
-}
-
-.certificate-main-title h1 {
-  margin: 0;
-
-  font-size: 20px;
-  font-weight: 700;
-
-  letter-spacing: 0.4px;
-}
-
-/* =====================================================
-   FORMAL SECTIONS
-===================================================== */
-
-.formal-section {
-  margin-bottom: 22px;
-}
-
-.formal-section h2 {
-  margin: 0 0 10px;
-
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.formal-paragraph {
-  margin: 0;
-
-  font-size: 14px;
-  line-height: 1.7;
-
-  text-align: justify;
-}
-
-/* =====================================================
-   IDENTIFYING INFORMATION
-===================================================== */
-
-.identifying-info {
-  display: flex;
-  flex-direction: column;
-
-  gap: 5px;
-
-  font-size: 14px;
-}
-
-.identifying-info > div {
-  display: flex;
-  align-items: flex-start;
-}
-
-.identifying-info strong {
-  min-width: 165px;
-  flex-shrink: 0;
-}
-
-.identifying-info span {
-  flex: 1;
-}
-
-/* =====================================================
-   FAMILY COMPOSITION TABLE
-===================================================== */
-
-.formal-family-table {
-  width: 100%;
-
-  overflow-x: auto;
-}
-
-.formal-family-table table {
-  width: 100%;
-
-  border-collapse: collapse;
-
-  font-size: 11px;
-}
-
-.formal-family-table th,
-.formal-family-table td {
-  padding: 6px 5px;
-
-  border: 1px solid #111;
-
-  text-align: center;
-
-  vertical-align: middle;
-}
-
-.formal-family-table th {
-  font-weight: 700;
-}
-
-.formal-family-table td:first-child {
-  text-align: left;
-}
-
-.empty-table-cell {
-  padding: 14px !important;
-
-  text-align: center !important;
-}
-
-/* =====================================================
-   FORMAL FIELDS
-===================================================== */
-
-.formal-field {
-  margin-bottom: 15px;
-}
-
-.formal-field strong {
-  display: block;
-
-  margin-bottom: 5px;
-
-  font-size: 14px;
-}
-
-.formal-field p {
-  margin: 0;
-
-  font-size: 14px;
-  line-height: 1.6;
-
-  text-align: justify;
-}
-
-/* =====================================================
-   SIGNATURES
-===================================================== */
-
-.formal-signatures {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 60px;
-
-  margin-top: 55px;
-
-  font-size: 13px;
-}
-
-.signature-column {
-  display: flex;
-  flex-direction: column;
-
-  text-align: left;
-}
-
-.signature-column p {
-  margin: 0 0 35px;
-}
-
-.signature-space {
-  height: 1px;
-
-  margin-bottom: 4px;
-
-  border-bottom: 1px solid transparent;
-}
-
-.signature-column strong {
-  font-size: 13px;
-}
-
-.signature-column span {
-  font-size: 12px;
-}
-
-/* =====================================================
-   CERTIFICATE BOTTOM
-===================================================== */
-
-.certificate-bottom {
-  margin-top: 40px;
-  padding-top: 12px;
-
-  border-top: 1px solid #777;
-
-  font-size: 11px;
-}
-
-.certificate-bottom p {
-  margin: 3px 0;
-}
-
-/* =====================================================
-   MODAL FOOTER
-===================================================== */
-
-.cert-modal-footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  gap: 10px;
-
-  padding: 16px 24px;
-
-  border-top: 1px solid #e5e7eb;
-
-  background: #ffffff;
-}
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 800px) {
-  .cert-modal-overlay {
-    padding: 10px;
-  }
-
-  .certificate-paper {
-    width: 100%;
-    min-height: auto;
-
-    padding: 30px 25px;
-
-    margin: 10px auto;
-  }
-
-  .formal-signatures {
-    gap: 25px;
-  }
-}
-
-/* =====================================================
-   PRINT
-===================================================== */
-
-@media print {
-  body * {
-    visibility: hidden;
-  }
-
-  #certificate-print,
-  #certificate-print * {
-    visibility: visible;
-  }
-
-  #certificate-print {
-    position: absolute;
-
-    left: 0;
     top: 0;
 
     width: 8.5in;
+
     min-height: 11in;
 
     margin: 0;
 
     padding: 0.7in 0.75in;
 
+    border: none;
+
     box-shadow: none;
+
+    background: #fff;
   }
 
+  /* Remove modal overlay appearance */
   .cert-modal-overlay {
     position: static;
 
@@ -1652,54 +2720,153 @@ input:disabled {
 
     padding: 0;
 
+    margin: 0;
+
     background: none;
+
+    overflow: visible;
   }
 
+  /* Remove modal container appearance */
   .cert-modal {
     width: auto;
+
+    max-width: none;
+
     max-height: none;
 
     display: block;
 
     overflow: visible;
 
+    border-radius: 0;
+
     box-shadow: none;
+
+    background: #fff;
   }
 
+  /* Hide modal controls when printing */
   .cert-modal-header,
-  .cert-modal-footer {
+  .cert-modal-footer,
+  .cert-print-top,
+  .cert-modal-close,
+  .toolbar,
+  .topbar,
+  .sidebar,
+  .nav,
+  .top-actions,
+  .toast,
+  .local-search {
     display: none !important;
   }
 
+  /* Remove scrolling from certificate */
+  .cert-modal-content {
+    overflow: visible;
+
+    padding: 0;
+
+    background: #fff;
+  }
+
+  /* Certificate paper print layout */
   .certificate-paper {
+    width: 8.5in;
+
+    min-height: 11in;
+
+    margin: 0;
+
+    padding: 0.7in 0.75in;
+
+    border: none;
+
+    box-shadow: none;
+
     overflow: visible;
   }
 
+  /* Remove shadows/borders from old sheet */
+  .sheet {
+    width: 100%;
+
+    border: 0;
+
+    box-shadow: none;
+  }
+
+  /* Letter-size paper */
   @page {
     size: Letter;
+
     margin: 0;
   }
 }
-.certificate-header {
-  text-align: center;
-  margin-bottom: 25px;
-  line-height: 1.5;
+
+/* =========================================================
+   EXTRA PRINT SAFETY
+   ========================================================= */
+
+@media print {
+  html,
+  body {
+    width: 100%;
+
+    height: auto;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: #fff;
+  }
+
+  .preview-stage {
+    background: #fff;
+
+    padding: 0;
+
+    margin: 0;
+  }
 }
 
-.obando-logo {
-  display: block;
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  margin: 0 auto 8px;
+/* ================================
+   CERTIFICATION MODAL
+================================ */
+
+.cert-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  box-sizing: border-box;
 }
-.content-info {
-  text-indent: 50px;
+
+.cert-modal {
+  width: min(1100px, 100%);
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
 }
-.family-income-formal-signatures .signature-column {
-  font-family: "Courier New", Courier, monospace !important;
-}
-.family-income-formal-signatures .middle-signature,
-.family-income-formal-signatures .date-issuance {
-  text-align: center;
+
+/* ================================
+   SCROLLABLE CERTIFICATE AREA
+================================ */
+
+.certificate-paper {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 30px;
+  box-sizing: border-box;
 }

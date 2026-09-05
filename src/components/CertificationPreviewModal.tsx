@@ -79,14 +79,32 @@ export default function CertificationPreviewModal({
             MODAL HEADER
         ===================================== */}
 
+        {/* =====================================
+    MODAL HEADER
+===================================== */}
         <div className="cert-modal-header">
-          <div>
-            <h2>Certification Preview</h2>
+          {/* PRINT BUTTON - TOP LEFT */}
+          <button
+            type="button"
+            className="btn primary cert-print-top"
+            onClick={print}
+          >
+            🖨 Print Certification
+          </button>
 
+          {/* MODAL TITLE */}
+          <div className="cert-modal-title">
+            <h2>Certification Preview</h2>
             <p>Preview the certification before printing.</p>
           </div>
 
-          <button type="button" className="cert-modal-close" onClick={onClose}>
+          {/* CLOSE BUTTON - TOP RIGHT */}
+          <button
+            type="button"
+            className="cert-modal-close"
+            onClick={onClose}
+            aria-label="Close certification preview"
+          >
             ×
           </button>
         </div>

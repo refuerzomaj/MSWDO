@@ -8,6 +8,7 @@ type Props = {
 const crumbs: Record<Page, string> = {
   dashboard: "Home / Dashboard",
   certification: "Home / Certification",
+  savedcertificates: "Certification / Saved Certificates",
   people: "People / All Records",
   form: "People / Add Person",
   view: "People / View",
@@ -29,9 +30,9 @@ export default function Topbar({ page, setPage, search, setSearch }: Props) {
         <button className="bell" title="Notifications" type="button">
           MG
         </button>
-        <button className="btn primary" onClick={() => setPage("form")}>
+        {/* <button className="btn primary" onClick={() => setPage("form")}>
           + Add Person
-        </button>
+        </button> */}
       </div>
     </header>
   );

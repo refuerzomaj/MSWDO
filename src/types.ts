@@ -5,6 +5,7 @@ export type Status = "Active" | "Inactive";
 export type Page =
   | "dashboard"
   | "certification"
+  | "savedcertificates"
   | "people"
   | "form"
   | "view"
@@ -34,6 +35,12 @@ export type CertificationRecord = {
   id: string;
   type: CertificationType;
 
+  // Database IDs
+  personId?: number;
+  socialcaseId?: number;
+  interagencyId?: number;
+  familyIncomeId?: number;
+
   // Person information
   firstName: string;
   middleName: string;
@@ -47,7 +54,14 @@ export type CertificationRecord = {
   educationalAttainment: string;
   occupation: string;
   contactNo: string;
+  barangay: string;
   address: string;
+
+  // =====================================================
+  // DATE CREATED
+  // Comes from person_details.created_at
+  // =====================================================
+  createdAt?: string;
 
   // Target institution
   targetInstitution: string;
