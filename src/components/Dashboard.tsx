@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { api } from "../api";
 
 import type { Person, Page } from "../types";
 import { fullName } from "../utils";
@@ -71,9 +72,7 @@ export default function Dashboard({ people, setPage, setCurrentId }: Props) {
         setLoading(true);
         setError("");
 
-        const response = await fetch(
-          "http://localhost:5000/api/dashboard/statistics",
-        );
+        const response = await fetch(api("/api/dashboard/statistics"));
 
         if (!response.ok) {
           throw new Error(`Server returned ${response.status}`);
@@ -252,7 +251,7 @@ export default function Dashboard({ people, setPage, setCurrentId }: Props) {
             <div className="chart-total">
               <strong>{totalCertifications}</strong>
 
-              <span>Total Certificates</span>
+              <span>&nbsp; Total Certificates</span>
             </div>
           </div>
 
@@ -264,7 +263,7 @@ export default function Dashboard({ people, setPage, setCurrentId }: Props) {
             <div className="legend-item">
               <span className="legend-dot social"></span>
 
-              <span>Social Case Study Report</span>
+              <span>Social Case Study Report &nbsp;</span>
 
               <strong>{certificationCounts.socialCaseStudy}</strong>
             </div>
@@ -272,7 +271,7 @@ export default function Dashboard({ people, setPage, setCurrentId }: Props) {
             <div className="legend-item">
               <span className="legend-dot referral"></span>
 
-              <span>Inter-Agency Referral Form</span>
+              <span>Inter-Agency Referral Form &nbsp;</span>
 
               <strong>{certificationCounts.interAgency}</strong>
             </div>
@@ -280,7 +279,7 @@ export default function Dashboard({ people, setPage, setCurrentId }: Props) {
             <div className="legend-item">
               <span className="legend-dot income"></span>
 
-              <span>Certificate of Family Income</span>
+              <span>Certificate of Family Income &nbsp;</span>
 
               <strong>{certificationCounts.familyIncome}</strong>
             </div>
@@ -364,11 +363,12 @@ export default function Dashboard({ people, setPage, setCurrentId }: Props) {
                           fontWeight: isSelected ? 600 : 400,
                         }}
                       >
-                        {item.barangay}
+                        {item.barangay} &nbsp;
+                        <strong>{item.total}</strong>
                       </span>
                     </span>
 
-                    <strong
+                    {/* <strong
                       style={{
                         minWidth: 25,
                         textAlign: "right",
@@ -376,7 +376,7 @@ export default function Dashboard({ people, setPage, setCurrentId }: Props) {
                       }}
                     >
                       {item.total}
-                    </strong>
+                    </strong> */}
                   </button>
                 );
               })

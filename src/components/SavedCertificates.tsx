@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { api } from "../api";
 
 import CertificationPreviewModal from "./CertificationPreviewModal";
 
@@ -94,7 +95,7 @@ export default function SavedCertificates({
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:5000/api/certifications");
+      const response = await fetch(api("/api/certifications"));
 
       if (!response.ok) {
         throw new Error(`Server returned ${response.status}`);
@@ -300,7 +301,7 @@ export default function SavedCertificates({
   const handlePreview = async (certificate: SavedCertificate) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/certifications/${certificate.personId}`,
+        api(`/api/certifications/${certificate.personId}`),
       );
 
       if (!response.ok) {
@@ -443,7 +444,7 @@ export default function SavedCertificates({
   const handleEdit = async (certificate: SavedCertificate) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/certifications/${certificate.personId}`,
+        api(`/api/certifications/${certificate.personId}`),
       );
 
       if (!response.ok) {

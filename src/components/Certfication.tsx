@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { api } from "../api";
 
 import type {
   Page,
@@ -356,8 +357,8 @@ export default function Certification({
        * These URLs must NOT contain Markdown.
        */
       const url = isUpdate
-        ? `http://localhost:5000/api/certifications/${form.personId}`
-        : "http://localhost:5000/api/certifications";
+        ? api(`/api/certifications/${form.personId}`)
+        : api("/api/certifications");
 
       /*
        * POST creates a new certificate.

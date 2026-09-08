@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { Page, CertificationRecord } from "./types";
 
@@ -32,6 +32,37 @@ export default function App() {
   const [message, setMessage] = useState("");
 
   // =====================================================
+  // SUCCESS TOAST STATE
+  // =====================================================
+
+  const [toastMessage, setToastMessage] = useState("");
+
+  const toastTimerRef = useRef<number | null>(null);
+
+  const showToast = (toast: string) => {
+    // Clear previous timer so a new toast gets the full 3 seconds
+    if (toastTimerRef.current !== null) {
+      window.clearTimeout(toastTimerRef.current);
+    }
+
+    setToastMessage(toast);
+
+    toastTimerRef.current = window.setTimeout(() => {
+      setToastMessage("");
+      toastTimerRef.current = null;
+    }, 3000);
+  };
+
+  // Clean up toast timer when App unmounts
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current !== null) {
+        window.clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, []);
+
+  // =====================================================
   // CERTIFICATION EDIT STATE
   // =====================================================
 
@@ -39,7 +70,7 @@ export default function App() {
     useState<CertificationRecord | null>(null);
 
   // =====================================================
-  // TOAST MESSAGE
+  // NORMAL TOAST MESSAGE
   // =====================================================
 
   const toast = (m: string) => {
@@ -134,6 +165,38 @@ export default function App() {
   return (
     <div className="app">
       {/* =================================================
+          SUCCESS TOAST
+      ================================================= */}
+
+      {toastMessage && (
+        <div className="success-toast">
+          <div className="success-toast-icon">✓</div>
+
+          <div className="success-toast-content">
+            <strong>Success</strong>
+
+            <span>{toastMessage}</span>
+          </div>
+
+          <button
+            type="button"
+            className="success-toast-close"
+            onClick={() => {
+              setToastMessage("");
+
+              if (toastTimerRef.current !== null) {
+                window.clearTimeout(toastTimerRef.current);
+                toastTimerRef.current = null;
+              }
+            }}
+            aria-label="Close notification"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
+      {/* =================================================
           SIDEBAR
       ================================================= */}
 
@@ -171,7 +234,7 @@ export default function App() {
           {page === "certification" && (
             <Certification
               setPage={navigate}
-              toast={toast}
+              toast={showToast}
               editCertification={editCertification}
               onFinishedEditing={finishedEditingCertificate}
             />
@@ -249,10 +312,6 @@ export default function App() {
 
           {/* =================================================
               REPORTS
-              
-              IMPORTANT:
-              Reports now loads certifications directly
-              from the backend, so DON'T pass people.
           ================================================= */}
 
           {page === "reports" && <Reports />}
@@ -266,7 +325,7 @@ export default function App() {
       </div>
 
       {/* =================================================
-          TOAST
+          NORMAL TOAST
       ================================================= */}
 
       {message && <div className="toast show">{message}</div>}

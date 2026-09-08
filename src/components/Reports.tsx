@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { CertificationRecord } from "../types";
+import { api } from "../api";
 
 export default function Reports() {
   // =====================================================
@@ -29,7 +30,7 @@ export default function Reports() {
       setLoading(true);
       setError("");
 
-      const response = await fetch("http://localhost:5000/api/certifications");
+      const response = await fetch(api("/api/certifications"));
 
       if (!response.ok) {
         throw new Error(`Server returned ${response.status}`);
@@ -68,12 +69,9 @@ export default function Reports() {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/certifications/${personId}`,
-        {
-          method: "DELETE",
-        },
-      );
+      const response = await fetch(api(`/api/certifications/${personId}`), {
+        method: "DELETE",
+      });
 
       const data = await response.json();
 
