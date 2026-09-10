@@ -101,6 +101,8 @@ a {
 
   text-decoration: none;
   color: #fff;
+  background: transparent;
+  border: none;
 }
 
 /* Logo container */
@@ -2352,14 +2354,50 @@ textarea:disabled {
    RESPONSIVE TABLET
    ========================================================= */
 
+/* =========================================================
+   RESPONSIVE TABLET
+   ========================================================= */
+
 @media (max-width: 980px) {
-  /* Remove sidebar on smaller screens */
+  /*
+    Keep sidebar visible on tablet.
+    Make it slightly narrower.
+  */
+
+  :root {
+    --sidebar: 210px;
+  }
+
   .app {
-    grid-template-columns: 1fr;
+    grid-template-columns: var(--sidebar) 1fr;
   }
 
   .sidebar {
-    display: none;
+    display: flex;
+    padding: 18px 10px;
+  }
+
+  .brand {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .brand > div:last-child {
+    font-size: 13px;
+  }
+
+  .nav button {
+    padding: 10px 10px;
+    font-size: 13px;
+  }
+
+  .userbox {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .userbox .meta {
+    font-size: 12px;
   }
 
   /* Stack major layouts */
@@ -3014,4 +3052,491 @@ textarea:disabled {
       transform: translateY(0);
     }
   }
+}
+
+/* =========================================================
+   MOBILE SIDEBAR
+   ========================================================= */
+
+.mobile-header {
+  display: none;
+}
+
+.mobile-menu-button {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 5px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+}
+
+.mobile-menu-button span {
+  display: block;
+
+  width: 22px;
+  height: 2px;
+
+  background: #374151;
+
+  border-radius: 2px;
+
+  transition: 0.2s ease;
+}
+
+.mobile-brand {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.mobile-brand-text {
+  display: flex;
+  flex-direction: column;
+
+  color: #111827;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.mobile-brand-text small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #6b7280;
+
+  font-size: 10px;
+  font-weight: 400;
+}
+
+/* Mobile overlay */
+
+.sidebar-overlay {
+  display: none;
+}
+
+/* =========================================================
+   MOBILE <= 768px
+   ========================================================= */
+
+@media (max-width: 768px) {
+  /*
+    Remove sidebar column from desktop grid
+  */
+
+  .app {
+    grid-template-columns: 1fr;
+
+    min-height: 100vh;
+  }
+
+  /*
+    Mobile header
+  */
+
+  .mobile-header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 16px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid var(--line);
+
+    z-index: 1100;
+  }
+
+  /*
+    Sidebar becomes a sliding drawer.
+
+    IMPORTANT:
+    The background remains var(--navy).
+    No sidebar color is changed.
+  */
+
+  .sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: min(280px, 85vw);
+
+    height: 100vh;
+
+    padding: 18px 12px;
+
+    background: var(--navy);
+
+    transform: translateX(-100%);
+
+    transition: transform 0.25s ease;
+
+    z-index: 1200;
+
+    box-shadow: 8px 0 25px rgba(0, 0, 0, 0.18);
+  }
+
+  /*
+    Open mobile sidebar
+  */
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  /*
+    Hide the desktop brand because
+    the mobile header already has the brand.
+  */
+
+  .sidebar > .brand {
+    display: none;
+  }
+
+  /*
+    Mobile navigation
+  */
+
+  .nav {
+    margin-top: 10px;
+
+    gap: 5px;
+  }
+
+  .nav button {
+    min-height: 46px;
+
+    padding: 11px 12px;
+
+    font-size: 14px;
+  }
+
+  /*
+    User box
+  */
+
+  .userbox {
+    margin-top: auto;
+
+    padding: 12px 8px 4px;
+  }
+
+  /*
+    Overlay
+  */
+
+  .sidebar-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: block;
+
+    background: rgba(0, 0, 0, 0.4);
+
+    z-index: 1150;
+  }
+
+  /*
+    Main content needs space for mobile header
+  */
+
+  .main {
+    min-width: 0;
+
+    width: 100%;
+
+    padding-top: 64px;
+  }
+
+  /*
+    Topbar on mobile
+  */
+
+  .topbar {
+    padding: 12px 16px;
+
+    min-height: 58px;
+  }
+
+  /*
+    Search
+  */
+
+  .search {
+    width: 160px;
+
+    min-width: 100px;
+  }
+
+  /*
+    Certification fields
+  */
+
+  .certification-page .fields.g3,
+  .certification-page .fields.g2,
+  .certification-page .fields.g4 {
+    grid-template-columns: 1fr;
+  }
+
+  .certification-page .field-full {
+    grid-column: auto;
+  }
+
+  /*
+    Certification form inputs
+  */
+
+  .certification-page
+    input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+  .certification-page select,
+  .certification-page textarea {
+    width: 100%;
+
+    max-width: 100%;
+
+    font-size: 14px;
+
+    padding: 10px 11px;
+  }
+
+  .certification-page
+    input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+  .certification-page select {
+    height: 40px;
+  }
+
+  /*
+    Family header
+  */
+
+  .certification-page .family-header {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .certification-page .family-header button {
+    width: 100%;
+  }
+
+  /*
+    Form footer
+  */
+
+  .certification-page .form-foot {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .certification-page .form-foot > button,
+  .certification-page .form-foot .row {
+    width: 100%;
+  }
+
+  .certification-page .form-foot .row {
+    flex-direction: column;
+  }
+
+  .certification-page .form-foot .row button {
+    width: 100%;
+  }
+
+  /*
+    Modal
+  */
+
+  .cert-modal-overlay {
+    padding: 10px;
+  }
+
+  .cert-modal {
+    max-height: 97vh;
+
+    width: 100%;
+  }
+
+  /*
+    Modal header
+  */
+
+  .cert-modal-header {
+    min-height: 110px;
+
+    padding: 55px 55px 12px;
+  }
+
+  .cert-print-top {
+    left: 12px;
+
+    top: 12px;
+
+    transform: none;
+  }
+
+  .cert-modal-close {
+    right: 12px;
+
+    top: 12px;
+
+    transform: none;
+  }
+
+  .cert-modal-title h2 {
+    font-size: 17px;
+  }
+
+  .cert-modal-title p {
+    font-size: 12px;
+  }
+
+  /*
+    Certificate paper
+  */
+
+  .certificate-paper {
+    width: 100%;
+
+    padding: 25px 18px;
+
+    margin: 10px auto;
+
+    border: none;
+
+    box-shadow: none;
+  }
+
+  .certificate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /*
+    Modal footer
+  */
+
+  .cert-modal-footer {
+    flex-direction: column;
+  }
+
+  .cert-modal-footer .btn {
+    width: 100%;
+  }
+
+  /*
+    Signature
+  */
+
+  .signature-grid {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+}
+@media (max-width: 480px) {
+  .mobile-header {
+    height: 60px;
+
+    padding: 8px 12px;
+  }
+
+  .mobile-menu-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .mobile-brand-text {
+    font-size: 13px;
+  }
+
+  .mobile-brand-text small {
+    font-size: 9px;
+  }
+
+  .main {
+    padding-top: 60px;
+  }
+
+  .content {
+    padding: 14px 12px 24px;
+  }
+
+  .topbar {
+    padding: 10px 12px;
+  }
+
+  .top-actions {
+    gap: 6px;
+  }
+
+  .search {
+    width: 130px;
+
+    min-width: 90px;
+  }
+}
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.saved-certificates-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+/* Optional: make scrollbar easier to see */
+.table-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }

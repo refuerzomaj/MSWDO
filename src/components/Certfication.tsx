@@ -680,6 +680,7 @@ export default function Certification({
 
                 <input
                   required
+                  placeholder="Age"
                   type="number"
                   min="0"
                   value={form.age || ""}
@@ -813,11 +814,11 @@ export default function Certification({
 
                   <option value="Paliwas">Paliwas</option>
 
-                  <option value="Pantoc">Pantoc</option>
-
-                  <option value="Poblacion">Poblacion</option>
+                  <option value="Panghulo">Panghulo</option>
 
                   <option value="Salambao">Salambao</option>
+
+                  <option value="San Pascual">San Pascual</option>
 
                   <option value="Tawiran">Tawiran</option>
                 </select>
@@ -883,10 +884,11 @@ export default function Certification({
                 <div className="fields g3">
                   {/* Name */}
                   <div>
-                    <label>Name</label>
+                    <label>Full Name</label>
 
                     <input
                       value={member.name}
+                      placeholder="Enter full name..."
                       onChange={(e) =>
                         updateFamilyMember(member.id, "name", e.target.value)
                       }
@@ -901,6 +903,7 @@ export default function Certification({
                       required
                       type="number"
                       min="0"
+                      placeholder="Enter age..."
                       value={member.age || ""}
                       onChange={(e) =>
                         updateFamilyMember(
@@ -944,6 +947,7 @@ export default function Certification({
 
                     <input
                       value={member.relationship}
+                      placeholder="Enter Relationship..."
                       onChange={(e) =>
                         updateFamilyMember(
                           member.id,
@@ -960,6 +964,7 @@ export default function Certification({
 
                     <input
                       value={member.educationalAttainment}
+                      placeholder="Enter Educational Attainment..."
                       onChange={(e) =>
                         updateFamilyMember(
                           member.id,
@@ -976,6 +981,7 @@ export default function Certification({
 
                     <input
                       value={member.occupation}
+                      placeholder="Enter Occupation..."
                       onChange={(e) =>
                         updateFamilyMember(
                           member.id,
@@ -990,18 +996,26 @@ export default function Certification({
                   <div>
                     <label>Income</label>
 
-                    <input
-                      type="number"
-                      min="0"
-                      value={member.income || ""}
+                    <select
+                      value={member.income}
                       onChange={(e) =>
-                        updateFamilyMember(
-                          member.id,
-                          "income",
-                          Number(e.target.value) || 0,
-                        )
+                        updateFamilyMember(member.id, "income", e.target.value)
                       }
-                    />
+                    >
+                      <option value="">Select</option>
+
+                      <option value="100,000 and up">100,000 and up</option>
+
+                      <option value="50,000 - 99,999">50,000 - 99,999</option>
+
+                      <option value="20,000 - 49,999">20,000 - 49,999</option>
+
+                      <option value="10,000 - 19,999">10,000 - 19,999</option>
+
+                      <option value="5001 - 9,999">5001 - 9,999</option>
+
+                      <option value="5,000 - below ">5,000 - below </option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -1115,6 +1129,7 @@ export default function Certification({
 
               <input
                 required
+                placeholder="Age"
                 type="number"
                 min="0"
                 value={form.age || ""}
@@ -1181,11 +1196,11 @@ export default function Certification({
 
                 <option value="Paliwas">Paliwas</option>
 
-                <option value="Pantoc">Pantoc</option>
-
-                <option value="Poblacion">Poblacion</option>
+                <option value="Panghulo">Panghulo</option>
 
                 <option value="Salambao">Salambao</option>
+
+                <option value="San Pascual">San Pascual</option>
 
                 <option value="Tawiran">Tawiran</option>
               </select>
@@ -1203,7 +1218,7 @@ export default function Certification({
             </div>
 
             {/* Services Needed */}
-            <div>
+            {/* <div>
               <label>Services Needed</label>
 
               <input
@@ -1211,7 +1226,7 @@ export default function Certification({
                 onChange={(e) => updateField("servicesNeeded", e.target.value)}
                 placeholder="Services needed"
               />
-            </div>
+            </div> */}
 
             {/* Address */}
             <div className="field-full">
@@ -1310,6 +1325,7 @@ export default function Certification({
 
               <input
                 required
+                placeholder="Age"
                 type="number"
                 min="0"
                 value={form.age || ""}
@@ -1365,11 +1381,11 @@ export default function Certification({
 
                 <option value="Paliwas">Paliwas</option>
 
-                <option value="Pantoc">Pantoc</option>
-
-                <option value="Poblacion">Poblacion</option>
+                <option value="Panghulo">Panghulo</option>
 
                 <option value="Salambao">Salambao</option>
+
+                <option value="San Pascual">San Pascual</option>
 
                 <option value="Tawiran">Tawiran</option>
               </select>

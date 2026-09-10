@@ -324,7 +324,7 @@ export default function Reports() {
           <h2>Total Certifications</h2>
 
           <div className="chart-total">
-            <strong>{certifications.length}</strong>
+            <strong>{certifications.length} </strong>
             <span>Certificates</span>
           </div>
         </div>
@@ -333,7 +333,7 @@ export default function Reports() {
           <h2>Social Case Study</h2>
 
           <div className="chart-total">
-            <strong>{socialCaseStudyCount}</strong>
+            <strong>{socialCaseStudyCount} </strong>
             <span>Reports</span>
           </div>
         </div>
@@ -342,7 +342,7 @@ export default function Reports() {
           <h2>Inter-Agency Referral</h2>
 
           <div className="chart-total">
-            <strong>{interAgencyCount}</strong>
+            <strong>{interAgencyCount} </strong>
             <span>Forms</span>
           </div>
         </div>
@@ -351,7 +351,7 @@ export default function Reports() {
           <h2>Family Income</h2>
 
           <div className="chart-total">
-            <strong>{familyIncomeCount}</strong>
+            <strong>{familyIncomeCount} </strong>
             <span>Certificates</span>
           </div>
         </div>

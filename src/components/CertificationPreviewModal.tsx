@@ -326,7 +326,7 @@ export default function CertificationPreviewModal({
                 <p className="formal-paragraph">
                   {certification.familySituation ||
                     displayName +
-                      " is a native residence of Obando Bulacan. They live in their own house made of semi-concrete materials, The client fully depends on his father as a collection specialist. However;the income of the faily is too minimal to support their basic needs and financial expenses; thus, they sought the MSWDO for proper intervention."}
+                      " is a native residence of Obando Bulacan. They live in their own house made of semi-concrete materials, The client fully depends on his father as a collection specialist. However;the income of the family is too minimal to support their basic needs and financial expenses; thus, they sought the MSWDO for proper intervention."}
                 </p>
               </div>
 
@@ -386,33 +386,43 @@ export default function CertificationPreviewModal({
                 <div className="identifying-info">
                   <h2>I. PATIENT'S DATA:</h2>
                   <div>
-                    <span>Patient Name :</span>
+                    <strong>Patient Name :</strong>
 
-                    <span>{displayName}</span>
-                    <span>Age :</span>
+                    <strong>{displayName}</strong>
+                    <strong>Age :</strong>
 
-                    <span>{value(certification.age)}</span>
-                    <span>Civil Status :</span>
+                    <strong>{value(certification.age)}</strong>
+                    <strong>Civil Status :</strong>
 
-                    <span>{value(certification.civilStatus)}</span>
+                    <strong>{value(certification.civilStatus)}</strong>
                   </div>
 
                   <div>
                     <strong>Address :</strong>
 
-                    <span>{value(certification.address)}</span>
+                    <strong>{value(certification.address)}</strong>
                   </div>
                 </div>
-
-                <div className="ClinicalDataInfo formal-field">
-                  <h2>Clinical Data:</h2>
-                  <h2>
-                    FOR MEDICAL ASSISTANCE DIABETES MELLITUS II DIABETES
-                    NEPHROPATHY (See attachement)
-                  </h2>
-                  <p>MAY DELA PAZ-OSEDA, MD</p>
-                  <p>Medical Officer II</p>
-                  <p>LICENSE NO. 110351</p>
+                <br />
+                <h2>II. Clinical Data: </h2>
+                <p
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  FOR MEDICAL ASSISTANCE DIABETES MELLITUS II DIABETES
+                  NEPHROPATHY (See attachement)
+                </p>
+                <div className="certificate-date">
+                  <p>
+                    MAY DELA PAZ-OSEDA, MD <br /> Medical Officer II
+                    <br />
+                    LICENSE NO. 110351
+                  </p>
+                  <p></p>
+                  <p></p>
                 </div>
 
                 <h2>
@@ -473,15 +483,18 @@ export default function CertificationPreviewModal({
                       {value(certification.firstName)}{" "}
                       {value(certification.lastName)}
                     </b>
-                    , of legal age, residing at 0411 (A) PROVINCIAL RD. SAN
-                    PASCUAL, OBANDO, BULACAN is found to have a family income
-                    below the latest poverty threshold as determined by the
-                    Philippine Statistics Authority (PSA) in its report 1st Sem
-                    2021. Therefore, the above individual may qualify for the
-                    grant of Lifelin Rate as provided under Republict Act No.
-                    11552 and its Implementing Rule and Regulations. Provided
-                    that, the address indicated herein shall be the same address
-                    used ub the electric service being applied for.
+                    , of legal age, residing at 0411 (A){" "}
+                    <b style={{ textTransform: "uppercase" }}>
+                      {value(certification.address)}
+                    </b>{" "}
+                    is found to have a family income below the latest poverty
+                    threshold as determined by the Philippine Statistics
+                    Authority (PSA) in its report 1st Sem 2021. Therefore, the
+                    above individual may qualify for the grant of Lifelin Rate
+                    as provided under Republict Act No. 11552 and its
+                    Implementing Rule and Regulations. Provided that, the
+                    address indicated herein shall be the same address used ub
+                    the electric service being applied for.
                   </p>
                   <p className="content-info">
                     In case of transfer of residence, the above qualified
