@@ -1976,9 +1976,8 @@ textarea:disabled {
 }
 
 .identifying-info strong {
-  min-width: 165px;
-
   flex-shrink: 0;
+  padding: 0 20px 0 30px;
 }
 
 .identifying-info span {

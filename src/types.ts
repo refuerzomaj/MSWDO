@@ -28,7 +28,7 @@ export type CertificationFamilyMember = {
   civilStatus: string;
   educationalAttainment: string;
   occupation: string;
-  income: number;
+  income: string;
 };
 
 export type CertificationRecord = {
@@ -49,7 +49,7 @@ export type CertificationRecord = {
   age: number;
   dateOfBirth: string;
   birthplace: string;
-  gender: string;
+  gender: Gender | "";
   civilStatus: string;
   educationalAttainment: string;
   occupation: string;
@@ -76,12 +76,16 @@ export type CertificationRecord = {
   // Social Case Study Report
   presentingProblem: string;
   familySituation: string;
+  medicalCondition: string;
   assessment: string;
   recommendation: string;
 
   // Inter-Agency Referral
   referredTo: string;
+  clinicalData: string;
+  clinicalDataOther?: string;
   reasonForReferral: string;
+  placeToRefer: string;
   servicesNeeded: string;
   referralRemarks: string;
 
@@ -99,7 +103,7 @@ export interface FamilyMember {
   age: number;
   civilStatus: string;
   occupation: string;
-  income: number;
+  income: string;
   educationalAttainment: string;
   targetInstitution: string;
 }

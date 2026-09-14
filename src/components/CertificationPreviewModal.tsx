@@ -1,5 +1,7 @@
 import type { CertificationRecord } from "../types";
 import obandoLogo from "../assets/obando-logo.png";
+import { useReactToPrint } from "react-to-print";
+import React from "react";
 
 type Props = {
   isOpen: boolean;
@@ -12,6 +14,12 @@ export default function CertificationPreviewModal({
   onClose,
   certification,
 }: Props) {
+  const contentRef = React.useRef<HTMLDivElement>(null);
+
+  const print = useReactToPrint({
+    contentRef,
+    documentTitle: certification.type || "certification",
+  });
   if (!isOpen) {
     return null;
   }
@@ -62,12 +70,60 @@ export default function CertificationPreviewModal({
 
   const displayName = fullName || "________________";
 
+  const primaryFamilyMember = certification.familyMembers[0];
+
+  const pronoun = certification.gender === "Female" ? "her" : "his";
+  const subjectPronoun = certification.gender === "Female" ? "she" : "he";
+
+  const familyMemberName =
+    primaryFamilyMember?.name?.trim() || "________________";
+
+  const familyMemberRelationship =
+    primaryFamilyMember?.relationship?.trim() || "________________";
+
+  const defaultProblemPresented =
+    displayName +
+    " is requesting for a social case study report for " +
+    pronoun +
+    " " +
+    familyMemberRelationship +
+    " " +
+    familyMemberName +
+    " to avail financial/medical assistance from your " +
+    "good office (" +
+    value(certification.targetInstitution) +
+    "), The client was diagnosed with " +
+    value(certification.medicalCondition) +
+    ", Due to the nature of " +
+    pronoun +
+    " illness, " +
+    subjectPronoun +
+    " requires continues medical consultation, medication and regular monitoring by " +
+    "the attending physician. The family is currently facing financial difficulties " +
+    "and is unable to settle the remaining hospital balance due to their limited " +
+    "source income. Due to the indigent condition of the family, they cannot afford " +
+    "to support the client's basic needs.";
+
+  const defaultFamilyBackground =
+    displayName +
+    " is a native residence of Obando Bulacan. They live in their own house made of semi-concrete materials, The client fully depends on " +
+    pronoun +
+    " father as a collection specialist. However;the income of the family is too minimal to support their basic needs and financial expenses; thus, they sought the MSWDO for proper intervention.";
+
+  const defaultRecommendation =
+    "In view of the foregoing information, the undersigned worker respectfully recommends, " +
+    displayName +
+    " to avail financial/medical assistance from your good office (" +
+    value(certification.targetInstitution) +
+    "), Due to their indigent condition, " +
+    subjectPronoun +
+    " is found eligible in the said services.";
+
+  const defaultReasonForReferral =
+    "Due to their indigent condition, the client is found eligible in the said services.";
   /*
    * Print certificate.
    */
-  const print = () => {
-    window.print();
-  };
 
   return (
     <div className="cert-modal-overlay" onMouseDown={onClose}>
@@ -113,12 +169,16 @@ export default function CertificationPreviewModal({
             CERTIFICATE PAPER
         ===================================== */}
 
-        <div className="certificate-paper" id="certificate-print">
+        <div
+          ref={contentRef}
+          className="certificate-paper"
+          id="certificate-print"
+        >
           {/* =================================
               OFFICIAL HEADER
           ================================= */}
 
-          <div className="official-header">
+          <div className="official-header" ref={contentRef}>
             {/* OBANDO LOGO */}
             <img src={obandoLogo} className="obando-logo" />
 
@@ -183,63 +243,59 @@ export default function CertificationPreviewModal({
 
                 <div className="identifying-info">
                   <div>
-                    <strong>Name :</strong>
-
-                    <span>{displayName}</span>
+                    <strong>Name : {displayName}</strong>
                   </div>
 
                   <div>
-                    <strong>Age :</strong>
-
-                    <span>{value(certification.age)}</span>
+                    <strong>Age : {value(certification.age)}</strong>
                   </div>
 
                   <div>
-                    <strong>Birthday :</strong>
-
-                    <span>{formatDate(certification.dateOfBirth)}</span>
+                    <strong>
+                      Birthday : {formatDate(certification.dateOfBirth)}
+                    </strong>
                   </div>
 
                   <div>
-                    <strong>Birthplace :</strong>
-
-                    <span>{value(certification.birthplace)}</span>
+                    <strong>
+                      Birthplace : {value(certification.birthplace)}
+                    </strong>
                   </div>
 
                   <div>
-                    <strong>Address :</strong>
-
-                    <span>{value(certification.address)}</span>
+                    <strong>Address : {value(certification.address)}</strong>
                   </div>
 
                   <div>
-                    <strong>Educ. Attainment :</strong>
-
-                    <span>{value(certification.educationalAttainment)}</span>
+                    <strong>
+                      Educ. Attainment :{" "}
+                      {value(certification.educationalAttainment)}
+                    </strong>
                   </div>
 
                   <div>
-                    <strong>Civil Status :</strong>
-
-                    <span>{value(certification.civilStatus)}</span>
+                    <strong>
+                      Civil Status : {value(certification.civilStatus)}
+                    </strong>
                   </div>
 
                   <div>
-                    <strong>Occupation :</strong>
-
-                    <span>{value(certification.occupation)}</span>
+                    <strong>
+                      Occupation : {value(certification.occupation)}
+                    </strong>
                   </div>
 
                   <div>
-                    <strong>Contact No. :</strong>
-
-                    <span>{value(certification.contactNo)}</span>
+                    <strong>
+                      Contact No. : {value(certification.contactNo)}
+                    </strong>
                   </div>
 
                   <div>
-                    <strong>Target Institution :</strong>
-
-                    <span>{value(certification.targetInstitution)}</span>
+                    <strong>
+                      Target Institution :{" "}
+                      {value(certification.targetInstitution)}
+                    </strong>
                   </div>
                 </div>
               </div>
@@ -288,11 +344,7 @@ export default function CertificationPreviewModal({
                                     member.occupation && member.income
                                       ? " / "
                                       : ""
-                                  }${
-                                    member.income
-                                      ? `₱${member.income.toLocaleString()}`
-                                      : ""
-                                  }`
+                                  }${member.income ? `₱${member.income}` : ""}`
                                 : "________________"}
                             </td>
                           </tr>
@@ -308,14 +360,14 @@ export default function CertificationPreviewModal({
               <div className="formal-section">
                 <h2>III. Problem Presented:</h2>
 
-                <p className="formal-paragraph">
-                  {certification.presentingProblem ||
-                    displayName +
-                      " is requesting for a social case study report for his son Dale Cribenson B. Legaspi to avail financial/medical assistance from your " +
-                      "good office " +
-                      value(certification.targetInstitution) +
-                      ", The client was diagnosed with Appendicitis appendectomy, Due to the nature of his illness, he requires continues medical consultation, medication and regular monitoring by his attending physician. The family is currently facing financial difficulties and is unable to settle the remaining hospital balance due to their limited source income. Due to the indigent condition of the family, they cannot afford to support the client's basic needs."}
-                </p>
+                <br />
+                {certification?.presentingProblem?.trim() ? (
+                  <p className="formal-paragraph">
+                    {certification.presentingProblem}
+                  </p>
+                ) : (
+                  <p className="formal-paragraph">{defaultProblemPresented}</p>
+                )}
               </div>
 
               {/* FAMILY BACKGROUND */}
@@ -323,11 +375,13 @@ export default function CertificationPreviewModal({
               <div className="formal-section">
                 <h2>IV. Family Background</h2>
 
-                <p className="formal-paragraph">
-                  {certification.familySituation ||
-                    displayName +
-                      " is a native residence of Obando Bulacan. They live in their own house made of semi-concrete materials, The client fully depends on his father as a collection specialist. However;the income of the family is too minimal to support their basic needs and financial expenses; thus, they sought the MSWDO for proper intervention."}
-                </p>
+                {certification.familySituation.trim() ? (
+                  <p className="formal-paragraph">
+                    {certification.familySituation}
+                  </p>
+                ) : (
+                  <p className="formal-paragraph">{defaultFamilyBackground}</p>
+                )}
               </div>
 
               {/* RECOMMENDATION */}
@@ -335,14 +389,13 @@ export default function CertificationPreviewModal({
               <div className="formal-section">
                 <h2>V. Recommendation:</h2>
 
-                <p className="formal-paragraph">
-                  {certification.recommendation ||
-                    "In view of the foregoing information, the undersigned worker respectfully recommends, " +
-                      displayName +
-                      " to avail financial/medical assistance from your good office" +
-                      value(certification.targetInstitution) +
-                      ", Due to their indigent condition, he is found eligible in the said services."}
-                </p>
+                {certification.recommendation.trim() ? (
+                  <p className="formal-paragraph">
+                    {certification.recommendation}
+                  </p>
+                ) : (
+                  <p className="formal-paragraph">{defaultRecommendation}</p>
+                )}
               </div>
 
               {/* =================================
@@ -382,25 +435,23 @@ export default function CertificationPreviewModal({
           {certification.type === "Inter-Agency Referral Form" && (
             <>
               <div className="formal-section">
-                <h2>FOR: BULACAN MEDICAL CENTER</h2>
+                <h2>
+                  FOR: {value(certification.placeToRefer.toLocaleUpperCase())}
+                </h2>
                 <div className="identifying-info">
                   <h2>I. PATIENT'S DATA:</h2>
                   <div>
-                    <strong>Patient Name :</strong>
-
-                    <strong>{displayName}</strong>
-                    <strong>Age :</strong>
-
-                    <strong>{value(certification.age)}</strong>
-                    <strong>Civil Status :</strong>
-
-                    <strong>{value(certification.civilStatus)}</strong>
+                    <strong>
+                      Patient Name : {displayName}{" "}
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Age :{" "}
+                      {value(certification.age)}{" "}
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Civil Status :{" "}
+                      {value(certification.civilStatus)}
+                    </strong>
                   </div>
 
                   <div>
-                    <strong>Address :</strong>
-
-                    <strong>{value(certification.address)}</strong>
+                    <strong>Address : {value(certification.address)}</strong>
                   </div>
                 </div>
                 <br />
@@ -412,10 +463,20 @@ export default function CertificationPreviewModal({
                     textAlign: "center",
                   }}
                 >
-                  FOR MEDICAL ASSISTANCE DIABETES MELLITUS II DIABETES
-                  NEPHROPATHY (See attachement)
+                  FOR MEDICAL ASSISTANCE{" "}
+                  <strong>
+                    {value(certification.clinicalData?.toLocaleUpperCase())}
+                  </strong>{" "}
+                  <br />
+                  (See attachement)
                 </p>
-                <div className="certificate-date">
+                <div
+                  className="certificate-date"
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: "bold",
+                  }}
+                >
                   <p>
                     MAY DELA PAZ-OSEDA, MD <br /> Medical Officer II
                     <br />
@@ -429,36 +490,58 @@ export default function CertificationPreviewModal({
                   III. MUNICIPAL SOCIAL WORKER ASSESSMENT AND RECOMMENDATION:
                 </h2>
 
-                <p>
+                <p
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
                   <b>{displayName}</b>, is requesting for a referral to avail
-                  medical from your good office, <b>(BULACAN MEDICAL CENTER)</b>{" "}
+                  medical from your good office, (
+                  {value(certification.placeToRefer.toLocaleUpperCase())}){" "}
                   concerning her health condition who diagnosed with{" "}
                   <b>
-                    DIABETES MELLITUS TYPE II DIABETES NEPHROPATHY(see
-                    attachement)
+                    <span>
+                      {value(certification.clinicalData.toLocaleUpperCase())}
+                    </span>{" "}
                   </b>
                   . Due to indegent condition of the family, they cannot afford
                   to support her medicine expenses.
                 </p>
-                <p>
+                <p
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
                   In view of the foregoing information, the undersigned worker
                   respectfully recommend, {displayName} to avail medical
                   assistance from your good office.
                 </p>
 
                 <h2>IV. REASON FOR REFERRAL:</h2>
-                <p>
-                  Due to their indigent condition, the client is found eligible
-                  in the said services.
+
+                <p
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  {defaultReasonForReferral}
                 </p>
+
+                {certification.reasonForReferral?.trim() && (
+                  <p
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    {certification.reasonForReferral.trim()}
+                  </p>
+                )}
               </div>
 
               {/* SIGNATURES */}
 
               <div className="formal-signatures">
                 <div className="signature-column">
-                  <div className="signature-space" />
-
                   <strong>Christine L. Campita, RSW</strong>
 
                   <span>Social Welfare Officer I</span>
@@ -483,7 +566,7 @@ export default function CertificationPreviewModal({
                       {value(certification.firstName)}{" "}
                       {value(certification.lastName)}
                     </b>
-                    , of legal age, residing at 0411 (A){" "}
+                    , of legal age, residing at{" "}
                     <b style={{ textTransform: "uppercase" }}>
                       {value(certification.address)}
                     </b>{" "}
@@ -512,7 +595,14 @@ export default function CertificationPreviewModal({
               {/* SIGNATURES */}
 
               <div className="family-income-formal-signatures">
-                <div className="middle-signature">
+                <div
+                  className="middle-signature"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: "normal",
+                    fontFamily: "Courier New, Courier, monospace !important",
+                  }}
+                >
                   <span>_____________________</span>
                   <br></br>
                   <span>REYGIE A CABUCOS, RSW</span>
@@ -524,10 +614,14 @@ export default function CertificationPreviewModal({
                 <div className="date-issuance">
                   {formatDate(certification.requestedDate)}
                 </div>
-                <div className="signature-column">
+                <div
+                  className="signature-column"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: "normal",
+                  }}
+                >
                   <p>Conforme:</p>
-
-                  <div className="signature-space" />
 
                   <span>EUFROCINA E. CUADRA</span>
 

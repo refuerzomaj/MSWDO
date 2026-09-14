@@ -48,8 +48,11 @@ type SavedCertificate = {
   reasonForReferral?: string;
   servicesNeeded?: string;
   referralRemarks?: string;
+  clinicalData?: string;
+  placeToRefer?: string;
 
   presentingProblem?: string;
+  medicalCondition?: string;
   familySituation?: string;
   assessment?: string;
   recommendation?: string;
@@ -201,8 +204,8 @@ export default function SavedCertificates({
 
           income:
             member.income !== null && member.income !== undefined
-              ? Number(member.income)
-              : 0,
+              ? String(member.income)
+              : "",
         }))
       : [];
 
@@ -256,6 +259,8 @@ export default function SavedCertificates({
 
       presentingProblem: cert.presentingProblem || "",
 
+      medicalCondition: cert.medicalCondition || "",
+
       familySituation: cert.familySituation || "",
 
       assessment: cert.assessment || "",
@@ -264,7 +269,11 @@ export default function SavedCertificates({
 
       referredTo: cert.referredTo || "",
 
+      clinicalData: cert.clinicalData || "",
+
       reasonForReferral: cert.reasonForReferral || "",
+
+      placeToRefer: cert.placeToRefer || "",
 
       servicesNeeded: cert.servicesNeeded || "",
 
@@ -381,6 +390,8 @@ export default function SavedCertificates({
 
           presentingProblem: certificate.presentingProblem || "",
 
+          medicalCondition: certificate.medicalCondition || "",
+
           familySituation: certificate.familySituation || "",
 
           assessment: certificate.assessment || "",
@@ -389,7 +400,11 @@ export default function SavedCertificates({
 
           referredTo: certificate.referredTo || "",
 
+          clinicalData: certificate.clinicalData || "",
+
           reasonForReferral: certificate.reasonForReferral || "",
+
+          placeToRefer: certificate.placeToRefer || "",
 
           servicesNeeded: certificate.servicesNeeded || "",
 
@@ -525,6 +540,8 @@ export default function SavedCertificates({
 
         presentingProblem: certificate.presentingProblem || "",
 
+        medicalCondition: certificate.medicalCondition || "",
+
         familySituation: certificate.familySituation || "",
 
         assessment: certificate.assessment || "",
@@ -533,7 +550,11 @@ export default function SavedCertificates({
 
         referredTo: certificate.referredTo || "",
 
+        clinicalData: certificate.clinicalData || "",
+
         reasonForReferral: certificate.reasonForReferral || "",
+
+        placeToRefer: certificate.placeToRefer || "",
 
         servicesNeeded: certificate.servicesNeeded || "",
 

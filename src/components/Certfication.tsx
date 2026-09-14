@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "../api";
 
 import type {
@@ -57,7 +57,7 @@ const createFamilyMember = (): CertificationFamilyMember => ({
   relationship: "",
   educationalAttainment: "",
   occupation: "",
-  income: 0,
+  income: "",
 });
 
 /*
@@ -106,12 +106,15 @@ const createCertification = (type: CertificationType): CertificationRecord => ({
   // Social Case Study fields.
   presentingProblem: "",
   familySituation: "",
+  medicalCondition: "",
   assessment: "",
   recommendation: "",
 
   // Inter-Agency Referral fields.
   referredTo: "",
+  clinicalData: "",
   reasonForReferral: "",
+  placeToRefer: "",
   servicesNeeded: "",
   referralRemarks: "",
 
@@ -204,6 +207,154 @@ export default function Certification({
     });
   };
 
+  const generatedSocialTextRef = useRef({
+    presentingProblem: "",
+    familySituation: "",
+    recommendation: "",
+  });
+
+  const getSocialCaseStudyDefaults = (certification: CertificationRecord) => {
+    const displayName =
+      [
+        certification.firstName,
+        certification.middleName,
+        certification.lastName,
+        certification.suffix,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .trim() || " _________";
+
+    // Pronouns
+    let possessivePronoun = "their";
+    let subjectPronoun = "they";
+
+    if (certification.gender === "Female") {
+      possessivePronoun = "her";
+      subjectPronoun = "she";
+    } else if (certification.gender === "Male") {
+      possessivePronoun = "his";
+      subjectPronoun = "he";
+    }
+
+    // Get the first family member with information
+    const familyMember = certification.familyMembers?.find(
+      (member) => member.name?.trim() || member.relationship?.trim(),
+    );
+
+    const familyMemberName = familyMember?.name?.trim() || " _________";
+
+    const familyMemberRelationship =
+      familyMember?.relationship?.trim() || "_________";
+
+    const familyReference = [familyMemberRelationship, familyMemberName]
+      .filter(Boolean)
+      .join(" ");
+
+    const targetInstitution =
+      certification.targetInstitution?.trim() || " _________";
+
+    const medicalCondition =
+      certification.medicalCondition?.trim() || " _________";
+
+    const presentingProblem =
+      `${displayName} is requesting for a social case study report for ` +
+      // `${possessivePronoun} ${familyReference} to avail financial/medical ` +
+      `_________ to avail financial/medical ` +
+      `assistance from your good office (${targetInstitution}). ` +
+      `_________ was diagnosed with ${medicalCondition}. ` +
+      `Due to the nature of ${possessivePronoun} illness, ${subjectPronoun} ` +
+      `requires continuous medical consultation, medication and regular ` +
+      `monitoring by the attending physician. The family is currently facing ` +
+      `financial difficulties and is unable to settle the remaining hospital ` +
+      `balance due to their limited source of income. Due to the indigent ` +
+      `condition of the family, they cannot afford to support the client's ` +
+      `basic needs.`;
+
+    const familySituation =
+      `${displayName} is a native resident of Obando, Bulacan. ` +
+      `They live in their own house made of semi-concrete materials. ` +
+      `_________ fully depends on ${possessivePronoun} father as a ` +
+      `collection specialist. However, the income of the family is too ` +
+      `minimal to support their basic needs and financial expenses; thus, ` +
+      `they sought the MSWDO for proper intervention.`;
+
+    const recommendation =
+      `In view of the foregoing information, the undersigned worker ` +
+      `respectfully recommends ${displayName} to avail financial/medical ` +
+      `assistance from your good office (${targetInstitution}). ` +
+      `Due to their indigent condition, ${subjectPronoun} is found eligible ` +
+      `for the said services.`;
+
+    return {
+      presentingProblem,
+      familySituation,
+      recommendation,
+    };
+  };
+
+  useEffect(() => {
+    if (!form || form.type !== "Social Case Study Report") {
+      return;
+    }
+
+    const defaults = getSocialCaseStudyDefaults(form);
+
+    setForm((previous) => {
+      if (!previous || previous.type !== "Social Case Study Report") {
+        return previous;
+      }
+
+      const next = { ...previous };
+
+      // Update Problem Presented
+      if (
+        !previous.presentingProblem ||
+        previous.presentingProblem ===
+          generatedSocialTextRef.current.presentingProblem
+      ) {
+        next.presentingProblem = defaults.presentingProblem;
+      }
+
+      // Update Family Background
+      if (
+        !previous.familySituation ||
+        previous.familySituation ===
+          generatedSocialTextRef.current.familySituation
+      ) {
+        next.familySituation = defaults.familySituation;
+      }
+
+      // Update Recommendation
+      if (
+        !previous.recommendation ||
+        previous.recommendation ===
+          generatedSocialTextRef.current.recommendation
+      ) {
+        next.recommendation = defaults.recommendation;
+      }
+
+      // Remember the latest automatically generated paragraphs
+      generatedSocialTextRef.current = {
+        presentingProblem: next.presentingProblem,
+        familySituation: next.familySituation,
+        recommendation: next.recommendation,
+      };
+
+      return next;
+    });
+  }, [
+    form?.type,
+    form?.firstName,
+    form?.middleName,
+    form?.lastName,
+    form?.suffix,
+    form?.gender,
+    form?.targetInstitution,
+    form?.medicalCondition,
+    form?.familyMembers,
+  ]);
+
   /*
    * Changes the selected certification type.
    *
@@ -215,6 +366,12 @@ export default function Certification({
    */
   const chooseCertification = (type: CertificationType | "") => {
     setSelectedType(type);
+
+    generatedSocialTextRef.current = {
+      presentingProblem: "",
+      familySituation: "",
+      recommendation: "",
+    };
 
     if (type === "") {
       setForm(null);
@@ -712,6 +869,27 @@ export default function Certification({
                 />
               </div>
 
+              {/* Gender */}
+              <div>
+                <label>Gender</label>
+
+                <select
+                  required
+                  value={form.gender}
+                  onChange={(e) =>
+                    updateField(
+                      "gender",
+                      e.target.value as CertificationRecord["gender"],
+                    )
+                  }
+                >
+                  <option value="">Select gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
               {/* Educational Attainment */}
               <div>
                 <label>Educational Attainment</label>
@@ -1027,14 +1205,22 @@ export default function Certification({
           ====================================== */}
 
           <div className="card section">
+            <h2>Medical Condition</h2>
+
+            <textarea
+              rows={3}
+              value={form.medicalCondition}
+              onChange={(e) => updateField("medicalCondition", e.target.value)}
+              placeholder="Enter medical condition..."
+            />
             {/* Problem Presented */}
             <h2>III. Problem Presented</h2>
 
             <textarea
-              rows={6}
+              rows={8}
               value={form.presentingProblem}
               onChange={(e) => updateField("presentingProblem", e.target.value)}
-              placeholder="Enter the problem presented..."
+              placeholder="Problem presented..."
             />
 
             {/* Family Background */}
@@ -1044,18 +1230,18 @@ export default function Certification({
               rows={6}
               value={form.familySituation}
               onChange={(e) => updateField("familySituation", e.target.value)}
-              placeholder="Enter the family background..."
+              placeholder="Enter additional information..."
             />
 
             {/* Assessment */}
-            <h2>Assessment</h2>
+            {/* <h2>Assessment</h2>
 
             <textarea
               rows={6}
               value={form.assessment}
               onChange={(e) => updateField("assessment", e.target.value)}
-              placeholder="Enter assessment..."
-            />
+              placeholder="Enter additional information..."
+            /> */}
 
             {/* Recommendation */}
             <h2>V. Recommendation</h2>
@@ -1064,7 +1250,7 @@ export default function Certification({
               rows={6}
               value={form.recommendation}
               onChange={(e) => updateField("recommendation", e.target.value)}
-              placeholder="Enter recommendation..."
+              placeholder="Enter additional information..."
             />
           </div>
         </>
@@ -1161,6 +1347,26 @@ export default function Certification({
               </select>
             </div>
 
+            {/* Gender */}
+            <div>
+              <label>Gender</label>
+
+              <select
+                value={form.gender}
+                onChange={(e) =>
+                  updateField(
+                    "gender",
+                    e.target.value as CertificationRecord["gender"],
+                  )
+                }
+              >
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
             {/* Referred To */}
             <div>
               <label>Referred To</label>
@@ -1217,6 +1423,36 @@ export default function Certification({
               />
             </div>
 
+            {/* Clinical Data */}
+            <div>
+              <label>Clinical Data</label>
+
+              <select
+                value={form.clinicalData}
+                onChange={(e) => updateField("clinicalData", e.target.value)}
+              >
+                <option value="">Select clinical data</option>
+                <option value="Hypertension">Hypertension</option>
+                <option value="Diabetes Mellitus">Diabetes Mellitus</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+
+            {form.clinicalData === "Others" && (
+              <div>
+                <label>Specify Clinical Data</label>
+
+                <input
+                  type="text"
+                  value={form.clinicalDataOther || ""}
+                  onChange={(e) =>
+                    updateField("clinicalDataOther", e.target.value)
+                  }
+                  placeholder="Enter clinical data..."
+                />
+              </div>
+            )}
+
             {/* Services Needed */}
             {/* <div>
               <label>Services Needed</label>
@@ -1248,7 +1484,19 @@ export default function Certification({
               rows={6}
               value={form.reasonForReferral}
               onChange={(e) => updateField("reasonForReferral", e.target.value)}
-              placeholder="Reason for referral..."
+              placeholder="Enter additional reason for referral..."
+            />
+          </div>
+
+          {/* Place to Refer */}
+          <div className="field-full">
+            <label>Place to Refer</label>
+
+            <textarea
+              rows={3}
+              value={form.placeToRefer}
+              onChange={(e) => updateField("placeToRefer", e.target.value)}
+              placeholder="Enter place to refer..."
             />
           </div>
 
@@ -1333,6 +1581,26 @@ export default function Certification({
                   updateField("age", Number(e.target.value) || 0)
                 }
               />
+            </div>
+
+            {/* Gender */}
+            <div>
+              <label>Gender</label>
+
+              <select
+                value={form.gender}
+                onChange={(e) =>
+                  updateField(
+                    "gender",
+                    e.target.value as CertificationRecord["gender"],
+                  )
+                }
+              >
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
 
             {/* Civil Status */}
