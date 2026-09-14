@@ -209,7 +209,7 @@ export default function App() {
 
         <Topbar
           page={page}
-          setPage={navigate}
+          // setPage={navigate}
           search={search}
           setSearch={setSearch}
         />

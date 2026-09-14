@@ -1,7 +1,6 @@
 import type { Page } from "../types";
 type Props = {
   page: Page;
-  setPage: (p: Page) => void;
   search: string;
   setSearch: (s: string) => void;
 };
@@ -16,7 +15,7 @@ const crumbs: Record<Page, string> = {
   reports: "Home / Reports",
   settings: "Home / Settings",
 };
-export default function Topbar({ page, setPage, search, setSearch }: Props) {
+export default function Topbar({ page, search, setSearch }: Props) {
   return (
     <header className="topbar">
       <div className="crumbs">{crumbs[page]}</div>

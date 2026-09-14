@@ -139,7 +139,7 @@ export default function PersonView({
                         <td>{member.civilStatus}</td>
                         <td>{member.occupation || "—"}</td>
                         <td>
-                          {member.income > 0
+                          {member.income > ""
                             ? `₱${member.income.toLocaleString()}`
                             : "—"}
                         </td>

@@ -238,18 +238,18 @@ export default function Certification({
     }
 
     // Get the first family member with information
-    const familyMember = certification.familyMembers?.find(
-      (member) => member.name?.trim() || member.relationship?.trim(),
-    );
+    // const familyMember = certification.familyMembers?.find(
+    //   (member) => member.name?.trim() || member.relationship?.trim(),
+    // );
 
-    const familyMemberName = familyMember?.name?.trim() || " _________";
+    // const familyMemberName = familyMember?.name?.trim() || " _________";
 
-    const familyMemberRelationship =
-      familyMember?.relationship?.trim() || "_________";
+    // const familyMemberRelationship =
+    //   familyMember?.relationship?.trim() || "_________";
 
-    const familyReference = [familyMemberRelationship, familyMemberName]
-      .filter(Boolean)
-      .join(" ");
+    // const familyReference = [familyMemberRelationship, familyMemberName]
+    //   .filter(Boolean)
+    //   .join(" ");
 
     const targetInstitution =
       certification.targetInstitution?.trim() || " _________";

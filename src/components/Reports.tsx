@@ -58,40 +58,40 @@ export default function Reports() {
   // DELETE CERTIFICATION
   // =====================================================
 
-  const handleDelete = async (personId: string | number) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this certification?\n\n" +
-        "This will permanently delete the certification and its person record.",
-    );
+  // const handleDelete = async (personId: string | number) => {
+  //   const confirmed = window.confirm(
+  //     "Are you sure you want to delete this certification?\n\n" +
+  //       "This will permanently delete the certification and its person record.",
+  //   );
 
-    if (!confirmed) {
-      return;
-    }
+  //   if (!confirmed) {
+  //     return;
+  //   }
 
-    try {
-      const response = await fetch(api(`/api/certifications/${personId}`), {
-        method: "DELETE",
-      });
+  //   try {
+  //     const response = await fetch(api(`/api/certifications/${personId}`), {
+  //       method: "DELETE",
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || `Server returned ${response.status}`);
-      }
+  //     if (!response.ok || !data.success) {
+  //       throw new Error(data.message || `Server returned ${response.status}`);
+  //     }
 
-      setCertifications((previous) =>
-        previous.filter((cert) => String(cert.id) !== String(personId)),
-      );
+  //     setCertifications((previous) =>
+  //       previous.filter((cert) => String(cert.id) !== String(personId)),
+  //     );
 
-      alert("Certification deleted successfully.");
-    } catch (err) {
-      console.error("DELETE CERTIFICATION ERROR:", err);
+  //     alert("Certification deleted successfully.");
+  //   } catch (err) {
+  //     console.error("DELETE CERTIFICATION ERROR:", err);
 
-      alert(
-        err instanceof Error ? err.message : "Failed to delete certification.",
-      );
-    }
-  };
+  //     alert(
+  //       err instanceof Error ? err.message : "Failed to delete certification.",
+  //     );
+  //   }
+  // };
 
   // =====================================================
   // BARANGAY LIST

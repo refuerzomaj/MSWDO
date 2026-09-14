@@ -113,7 +113,7 @@ export default function PrintPreview({
                     />
                     <Row
                       a="Occupation / Income"
-                      b={`${member.occupation || "—"} · ${member.income > 0 ? `₱${member.income.toLocaleString()}` : "—"}`}
+                      b={`${member.occupation || "—"} · ${member.income > "" ? `₱${member.income.toLocaleString()}` : "—"}`}
                     />
                     <Row
                       a="Education"

@@ -16,7 +16,7 @@ const blankFamily: FamilyMember = {
   age: 0,
   civilStatus: "Single",
   occupation: "",
-  income: 0,
+  income: "",
   educationalAttainment: "",
   targetInstitution: "",
 };
